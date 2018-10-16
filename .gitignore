@@ -1,0 +1,8 @@
+lib*
+ngrok
+pyvenv.cfg
+*.pyc
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
+*.sqlite3
