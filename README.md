@@ -70,5 +70,6 @@ The deployed version (master_heroku) on heroku has the following differences fro
 
 ## Known Issues
 
-* ......................
-[![Build Status](https://www.travis-ci.org/ramblingbarney/furry-waffle.svg?branch=master)](https://www.travis-ci.org/ramblingbarney/furry-waffle)
+* .....................
+
+[![Build Status](https://www.travis-ci.org/ramblingbarney/verbose-pancake.svg?branch=master)](https://www.travis-ci.org/ramblingbarney/verbose-pancake)
