@@ -1,6 +1,7 @@
 lib*
 ngrok
 pyvenv.cfg
+bin*
 *.pyc
 */*/*/__pycache__/
 */*/__pycache__/

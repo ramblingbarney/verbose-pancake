@@ -1,6 +1,6 @@
 # verbose-pancake
 
-The purpose of this application is provide an easy way to track bugs and features for payment.
+The purpose of this application is provide an easy way to track bugs/features for payment and to collaborate with fellow team members in real time with a message history.
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ The purpose of this application is provide an easy way to track bugs and feature
 
 * Run the following commands
   * ```chromedriver --port=9515```
-  * ```python3 -m unittest tests/<replace with files>```
+  * ```python3 manage.py test```
 
 ## Test Coverage
 
@@ -51,22 +51,64 @@ The deployed version (master_heroku) on heroku has the following differences fro
 
 ## Acceptance tests
 
-### Get Category (Show all fixture categories)
+### Register
 
-* As a user I want to see............
+* As a user I want to be able to enter my username, email, password and password confirmation to register with the site and be shown message 'You have successfully registered'
 
   * Acceptance criteria:
-    * 3...................
+    * Text box and label for;
+      * Username
+      * Email
+      * Passwords
+      * Password Confirmation
+      * Register Button
+
+### Register Duplicate Email or Username Form Errors
+
+* As a user I want to be prevented from entering usernames and email addresses that are already registered
+
+  * Acceptance criteria:
+    * A warning is displayed alerting the user that the email or username has been registered
+    * The user cannot submit the form
+
+### Register Password and Password Confirmation not matching Errors
+
+* As a user I want to be alerted when the password and password confirmation text do not match
+
+  * Acceptance criteria:
+    * A warning is displayed alerting the user that the password and password confirmation do not match
+
+### Login Failed
+
+* As a user I want to be alerted when either the username or password result in a failed login attempt
+
+  * Acceptance criteria:
+    * A warning is displayed alerting the user that either the password or username is incorrect
+
+### Login Success
+
+* As a user I want to be advised when the login has been successful
+
+  * Acceptance criteria:
+    * The home page links change
+    * A message is displayed confirming a successful login
+
+### Logout
+
+* As a user I want to be advised when I have logged out
+
+  * Acceptance criteria:
+    * The home page links change
+    * A message is displayed confirming a successful logout
 
 ## Manual Testing
 
-### Remember Me
-
-* Open 'http:://localhost:5000/register.html' template, enter username, email, password and repeat password fields.  Go to 'http:://localhost:5000/logout' url and then go to 'http:://localhost:5000/login.html' and enter the same email and password with the 'remember_me' checkbox ticked.  Close the browser tab and then reopen and go to 'http:://localhost:5000/get_recipes', you should be shown the Recipes list page 'http:://localhost:5000/get_recipes.html' and not the 'http:://localhost:5000/login' page.
+### Password Reset
+Click on the link 'Forgot My Password' and enter your email address, either look on the terminal running the webserver or the email address supplied and open the link in the browser, enter the new password into the input boxes provided and click 'Reset Password'.  Return to the login page and login using the new password.
 
 ### Small Screen / Mobile menu
 
-* Reduce the size of the webpage on any page and the menu bar links on the right should disappear and the 'hamburger' on the left will appear, click on the 'hamburger' and the slideout mobile menu with all links should appear, click on a menu link and the required page will load and the side menu will close.
+*
 
 ## Known Issues
 
