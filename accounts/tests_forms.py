@@ -2,6 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.sessions.models import Session
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
 from django.core import management
 from django.core.management.commands import loaddata
 
@@ -29,34 +30,55 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_failed_login_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        elements = self.driver.find_elements_by_xpath(
-            "//li[contains(@class, 'navigation-link')]/a")
+
+        elements = WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_elements_by_xpath(
+                "//li[contains(@class, 'navigation-link')]/a"))
+
+        # elements = self.driver.find_elements_by_xpath(
+        #     "//li[contains(@class, 'navigation-link')]/a")
 
         elements[0].click()
 
         self.assertEqual(
-            self.driver.current_url, 'http://127.0.0.1:8000/accounts/login/')
+            self.driver.current_url, 'http://localhost:8000/accounts/login/')
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id(
-            'id_username').send_keys('conorXXXXX@conor.com')
-        self.driver.find_element_by_id(
-            'id_password').send_keys('example1aslkfjlksjflaf')
-        self.driver.find_element_by_id(
-            'id_login_button').click()
-        self.driver.implicitly_wait(0)  # seconds
+        # self.driver.find_element_by_id(
+        #     'id_username').send_keys('conorXXXXX@conor.com')
+        # self.driver.find_element_by_id(
+        #     'id_password').send_keys('example1aslkfjlksjflaf')
+        # self.driver.find_element_by_id(
+        #     'id_login_button').click()
+        # self.driver.implicitly_wait(0)  # seconds
 
-        elements_count = self.driver.find_elements_by_xpath(
-            "//*[contains(text(), 'Your username or password is incorrect')]")
+        WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_element_by_id(
+                'id_username').send_keys('conorXXXXX@conor.com'))
+        WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_element_by_id(
+                'id_password').send_keys('example1aslkfjlksjflaf'))
+        WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_element_by_id(
+                'id_login_button').click())
+
+
+        # elements_count = self.driver.find_elements_by_xpath(
+        #     "//*[contains(text(), 'Your username or password is incorrect')]")
+
+        elements_count = WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_elements_by_xpath(
+                "//*[contains(text(), 'Your username or password is incorrect')]"))
+
 
         self.assertEqual(len(elements_count), 1)
 
     def test_register_duplicate_email_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -84,7 +106,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_register_duplicate_user_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -112,7 +134,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_register_password_not_match_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -140,7 +162,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_register_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -149,7 +171,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
         self.assertEqual(
             self.driver.current_url,
-            'http://127.0.0.1:8000/accounts/register/')
+            'http://localhost:8000/accounts/register/')
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id(
@@ -168,7 +190,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_login_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -177,7 +199,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         elements[0].click()
 
         self.assertEqual(
-            self.driver.current_url, 'http://127.0.0.1:8000/accounts/login/')
+            self.driver.current_url, 'http://localhost:8000/accounts/login/')
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id(
@@ -188,7 +210,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
             'id_login_button').click()
 
         self.driver.implicitly_wait(0)  # seconds
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -205,7 +227,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_logout_form(self):
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(

@@ -13,13 +13,11 @@ class SiteNavigationTest(unittest.TestCase):
         self.li_text = []
 
     def tearDown(self):
-        self.driver.get("http://localhost:5000/logout")
         self.driver.quit()
 
     def test_login_navigation(self):
-        ''' Test login navigation element '''
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -28,12 +26,11 @@ class SiteNavigationTest(unittest.TestCase):
         elements[0].click()
 
         self.assertEqual(
-            self.driver.current_url, 'http://127.0.0.1:8000/accounts/login/')
+            self.driver.current_url, 'http://localhost:8000/accounts/login/')
 
     def test_register_navigation(self):
-        ''' Test register navigation element '''
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -43,7 +40,7 @@ class SiteNavigationTest(unittest.TestCase):
 
         self.assertEqual(
             self.driver.current_url,
-            'http://127.0.0.1:8000/accounts/register/')
+            'http://localhost:8000/accounts/register/')
 
 
 class SitePageElementsShownTest(unittest.TestCase):
@@ -57,13 +54,11 @@ class SitePageElementsShownTest(unittest.TestCase):
         self.li_text = []
 
     def tearDown(self):
-        self.driver.get("http://localhost:5000/logout")
         self.driver.quit()
 
     def test_home_page_elements(self):
-        ''' Test home page elements (not logged in) '''
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -77,9 +72,8 @@ class SitePageElementsShownTest(unittest.TestCase):
         self.assertListEqual(test_list, self.li_text)
 
     def test_login_page_elements(self):
-        ''' Test login navigation element '''
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
@@ -95,9 +89,8 @@ class SitePageElementsShownTest(unittest.TestCase):
         self.assertEqual(len(elements), 3)
 
     def test_registration_page_elements(self):
-        ''' Test login navigation element '''
 
-        self.driver.get("http://127.0.0.1:8000")
+        self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
