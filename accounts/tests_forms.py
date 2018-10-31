@@ -57,13 +57,13 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_id(
-                'id_username').send_keys('conorXXXXX@conor.com'))
+                'id_username')).send_keys('conorXXXXX@conor.com')
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_id(
-                'id_password').send_keys('example1aslkfjlksjflaf'))
+                'id_password')).send_keys('example1aslkfjlksjflaf')
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_id(
-                'id_login_button').click())
+                'id_login_button')).click()
 
 
         # elements_count = self.driver.find_elements_by_xpath(
@@ -72,7 +72,6 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         elements_count = WebDriverWait(self.driver, 10).until(
             lambda x: x.find_elements_by_xpath(
                 "//*[contains(text(), 'Your username or password is incorrect')]"))
-
 
         self.assertEqual(len(elements_count), 1)
 
