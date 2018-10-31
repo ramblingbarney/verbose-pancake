@@ -20,7 +20,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
-        cls.driver = webdriver.Chrome(options=options)
+        cls.driver = webdriver.Chrome('lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py', options=options)
 
     @classmethod
     def tearDownClass(cls):

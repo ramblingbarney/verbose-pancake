@@ -9,7 +9,7 @@ class SiteNavigationTest(unittest.TestCase):
         # create selenium browser instance and options
         options = Options()
         options.add_argument("--headless")
-        self.driver = webdriver.Chrome(options=options)
+        self.driver = webdriver.Chrome('lib/python3.7/site-packages/selenium/webdriver/chrome/webdriver.py', options=options)
         self.li_text = []
 
     def tearDown(self):
