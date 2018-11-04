@@ -3,7 +3,8 @@ python:
  - "3.6.4"
 matrix:
   include:
-   - python: 3.7.1
+    - python: 3.7
+      dist: xenial
       sudo: true
 install:
  - pip3 install --upgrade pip
@@ -13,5 +14,4 @@ before_script:
  - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python3.7.1/bin/
  - export CHROME_BIN=chromium-browser
 script:
- - SECRET_KEY="thisagain" ./manage.py runserver localhost:8000 &
- - SECRET_KEY="thisagain" ./manage.py test
+ - SECRET_KEY="thisagain" ./manage.py runserver localhost:8000 & SECRET_KEY="thisagain" ./manage.py test
