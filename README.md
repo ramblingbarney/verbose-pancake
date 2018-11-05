@@ -17,10 +17,6 @@ The purpose of this application is provide an easy way to track bugs/features fo
 
 ### Running Tests
 
-* Download the latest chromedriver binary: https://sites.google.com/a/chromium.org/chromedriver/downloads, for linux ensure the binary is in your path or for windows provide a full path 'c:\< >.exe' on line 21 of 'test_front_end.py'.  
-
-* Run the following commands
-  * ```chromedriver --port=9515```
   * ```python3 manage.py test```
 
 ## Test Coverage

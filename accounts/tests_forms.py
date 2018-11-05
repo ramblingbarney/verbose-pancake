@@ -4,9 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from django.core import management
 from django.core.management.commands import loaddata
-import time
 
-timeout = time.time() + 60*1  # 1 minutes from now
 
 class SiteLoginLogout(StaticLiveServerTestCase):
 
@@ -31,62 +29,28 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
     def test_failed_login_form(self):
 
-        # driver = self.driver.get("http://localhost:8000")
-        # timeout = 10
-
-        # self.driver.implicitly_wait(10)  # seconds
-
         self.driver.get("http://localhost:8000")
 
-        while True:
-            navigation_click = 0
-            elements = self.driver.find_elements_by_xpath(
+        elements = self.driver.find_elements_by_xpath(
                 "//li[contains(@class, 'navigation-link')]/a")
-            if navigation_click == 10 or time.time() > timeout or elements:
-                break
-            navigation_click = navigation_click + 1
 
         elements[0].click()
 
         self.assertEqual(
             self.driver.current_url, 'http://localhost:8000/accounts/login/')
 
-        while True:
-            enter_login_details = 0
+        self.driver.implicitly_wait(0)  # seconds
 
-            element = self.driver.find_element_by_id('id_username')
+        self.driver.find_element_by_id(
+            'id_username').send_keys('conorXXXXX@conor.com')
+        self.driver.find_element_by_id(
+            'id_password').send_keys('example1aslkfjlksjflaf')
+        self.driver.find_element_by_id(
+            'id_login_button').click()
+        self.driver.implicitly_wait(0)  # seconds
 
-            self.driver.find_element_by_id(
-                'id_username').send_keys('conorXXXXX@conor.com')
-            self.driver.find_element_by_id(
-                'id_password').send_keys('example1aslkfjlksjflaf')
-            self.driver.find_element_by_id(
-                'id_login_button').click()
-
-            if enter_login_details == 10 or time.time() > timeout or element:
-                break
-            enter_login_details = enter_login_details + 1
-
-        # self.driver.implicitly_wait(0)  # seconds
-
-        # self.driver.find_element_by_id(
-        #     'id_username').send_keys('conorXXXXX@conor.com')
-        # self.driver.find_element_by_id(
-        #     'id_password').send_keys('example1aslkfjlksjflaf')
-        # self.driver.find_element_by_id(
-        #     'id_login_button').click()
-        # self.driver.implicitly_wait(0)  # seconds
-        #
-
-        while True:
-            error_text = 0
-
-            elements_count = self.driver.find_elements_by_xpath(
-                "//*[contains(text(), 'Your username or password is incorrect')]")
-
-            if error_text == 10 or time.time() > timeout or elements_count:
-                break
-            error_text = error_text + 1
+        elements_count = self.driver.find_elements_by_xpath(
+            "//*[contains(text(), 'Your username or password is incorrect')]")
 
         self.assertEqual(len(elements_count), 1)
 
