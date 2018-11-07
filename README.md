@@ -111,4 +111,4 @@ Click on the link 'Forgot My Password' and enter your email address, either look
 * .....................
 
 [![Build Status](https://www.travis-ci.org/ramblingbarney/verbose-pancake.svg?branch=master)](https://www.travis-ci.org/ramblingbarney/verbose-pancake)
-[![codecov.io](https://codecov.io/github/ramblingbarney/verbose-pancake/coverage.svg?branch=master)](https://codecov.io/github/ramblingbarney/verbose-pancake)
+[![codecov.io](https://codecov.io/github/codecov/codecov-python/coverage.svg?branch=master)](https://codecov.io/github/ramblingbarney/verbose-pancake)
