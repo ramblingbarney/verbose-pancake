@@ -8,13 +8,12 @@ matrix:
       sudo: true
 install:
  - pip3 install --upgrade pip
- - pip3 install --user codecov
  - pip3 install -r requirements.txt
 before_script:
  - wget https://chromedriver.storage.googleapis.com/2.43/chromedriver_linux64.zip
  - unzip chromedriver_linux64.zip -d /home/travis/virtualenv/python3.7.1/bin/
  - export CHROME_BIN=chromium-browser
 script:
- - SECRET_KEY="thisagain" ./manage.py runserver localhost:8000 & SECRET_KEY="thisagain" ./manage.py test --with-coverage
+ - SECRET_KEY="thisagain" ./manage.py runserver localhost:8000 & SECRET_KEY="thisagain" ./manage.py test
 after_success:
  - codecov
