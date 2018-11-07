@@ -16,4 +16,4 @@ before_script:
 script:
  - SECRET_KEY="thisagain" ./manage.py runserver localhost:8000 & SECRET_KEY="thisagain" ./manage.py test
 after_success:
- - codecov
+ - codecov -t	$CODECOV_TOKEN
