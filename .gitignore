@@ -4,6 +4,7 @@ pyvenv.cfg
 man*
 mail*
 bin*
+media/cache/*
 *.pyc
 */*/*/__pycache__/
 */*/__pycache__/
