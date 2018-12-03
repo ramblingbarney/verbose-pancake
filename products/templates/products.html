@@ -1,33 +1,88 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block page_title %}Features/Issues Page{% endblock %}
 {% block content %}
 
-<div class="row row-flex">
+<ul class="accordion" data-accordion data-allow-all-closed="true">
 {% for product in products %}
 
-    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">
+  <li class="accordion-item is-active" data-accordion-item>
+      <!-- Accordion tab title -->
+      {% ifequal product.product_type 'I' %}
+        <a href="#" class="accordion-title issue">
+          <span class="line-heading">Name:</span> {{ product.name }}
+          <span class="line-heading">Price:</span> {{ product.price }}
+          <span class="line-heading">Total Cumulative Donations: </span> {{ product.total_amount_paid }}
+          <span class="line-heading">Status:</span> {{ product.get_status_display }}
+        </a>
+       {% else %}
+       <a href="#" class="accordion-title feature">
+         <span class="line-heading">Name:</span> {{ product.name }}
+         <span class="line-heading">Price:</span> {{ product.price }}
+         <span class="line-heading">Total Cumulative Donations: </span> {{ product.total_amount_paid }}
+         <span class="line-heading">Status:</span> {{ product.get_status_display }}
+       </a>
+       {% endifequal %}
 
-        <div class="panel-body" >
-            <div class="product" style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')"></div>
-
-
-                <h3>{{ product.name }}</h3>
-                <p class="product-description">{{ product.description }}</p>
-                <p>{{ product.price }}</p>
-
-
-                    <form method="post" action="{% url 'add_to_cart' product.id %}">
-                        {% csrf_token %}
+      <!-- Accordion tab content: it would start in the open state due to using the `is-active` state class. -->
+      <div class="accordion-content" data-tab-content>
+        <table class="stack product-table">
+          <tbody>
+            <tr>
+              <td>
+                <div data-id="{{product.id}}" class="image-detail" onclick="toggleFullSize(this)">
+                  <img class="thumbnail-image-line-detail" src="url('{{ MEDIA_URL }}{{ product.image }}">
+                </div>
+                <div class="detail-paragraph">
+                  <div class="description-element">
+                    <h3 class="description-heading">Description {{ product.product_area }} {{ product.get_product_type_display }}</h3>
+                  </div>
+                  <div class="description-element">
+                    <font class="description-text">{{ product.description }}</font>
+                  </div>
+                  <div>
+                    <p class="file-name"><strong>Need:</strong> {{ product.get_product_need_display }}</p>
+                    <p class="file-name"><strong>Complexity:</strong> {{ product.get_product_complexity_display }}</p>
+                  </div>
+                  <div>
+                    <strong class="file-name">Document:</strong>
+                    <a href="{{ product.product_document.url }}" download="{{ product.file.name }}">
+                      <font class="file-name">{{ product.filename }}</font>
+                    </a>
+                  </div>
+                </div>
+              </td>
+              <td class="add-to-cart-cell">
+                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                  {% csrf_token %}
+                  <div class="row grid-x">
+                    <div class="small-5 large-10 columns add-to-cart-vote-form">
+                      <p class="cart-column-text votes-label">Votes: {{ product.votes }}</p>
+                      <form method="post" action="{% url 'add_to_cart' product.id %}">
                         <div class="input-group">
-                          <input name='quantity' type="number" min="1" max="1" class="form-control" placeholder="Quantity">
-                          <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">Add</button>
-                          </span>
-                        </div><!-- /input-group -->
+                          <font class="input-group-label quantity-label cart-column-text">Quantity:</font>
+                          <input name='quantity' type="number" min="1" max="999" class="form-control input-group-field small quantity-input cart-column-text" placeholder="" required>
+                        </div>
+                        <input type="button" onclick="plusOneVote()" class="button small button-cart-form cart-column-text" value="+1 Vote">
+                        {% if user.is_authenticated %}
+                          <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart">
+                          <input type="submit" class="button small button-cart-form cart-column-text" value="Edit">
+                        {% else %}
+                          <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart"  disabled=true>
+                          <input type="submit" class="button small button-cart-form cart-column-text" value="Edit"  disabled=true>
+                        {% endif %}
+                      </form>
+                    </div>
+                  </div>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-                    </form>
+  </li>
 
-        </div>
-    </div>
 {% endfor %}
-</div>
+</ul>
+
 {% endblock %}
