@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'django_nose',
+    'home',
     'accounts',
     'products',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'cart.contexts.cart_contents',
             ],
         },
     },
@@ -120,6 +125,8 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 AUTHENTICATION_BACKENDS = [
@@ -129,5 +136,8 @@ AUTHENTICATION_BACKENDS = [
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+TASK_UPLOAD_FILE_TYPES = ['pdf', 'vnd.oasis.opendocument.text','vnd.ms-excel','msword','application',]
+TASK_UPLOAD_FILE_MAX_SIZE = "5242880"

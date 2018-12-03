@@ -1,0 +1,179 @@
+/*Products*/
+
+.line-heading {
+  font-weight: bold;
+}
+
+.image-detail {
+  float:left;
+  padding: 0 10 5 0px;
+  width:40%;
+  height: auto;
+  cursor: pointer;
+}
+
+.image-detail-full-size {
+  float:left;
+  padding: 0 10 5 0px;
+  width:100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.thumbnail-image-line-detail {
+  max-width: 100%;
+  max-height: auto;
+}
+
+.product-table {
+  padding:0;
+}
+
+.description-heading {
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.description-text {
+  line-height: 1.4;
+  font-size: 1em;
+}
+
+.file-name {
+  font-size: 0.80em;
+}
+
+
+.description-element {
+  padding-bottom: 1em;
+}
+
+.issue {
+  background-color: yellow;
+}
+
+.feature {
+  background-color: green;
+}
+
+.add-to-cart-cell {
+  vertical-align: bottom;
+}
+
+.add-to-cart-vote-form {
+  margin-left: auto;
+  margin-right: 0;
+  min-width: 8em;
+  max-width: 10em;
+
+}
+
+.cart-column-text {
+  font-size: 1em;
+}
+
+.votes-label {
+  padding: 0 0 0 6px;
+}
+
+.quantity-label {
+  padding: 0 0.4em 0 0.4em;
+  background-color: white;
+  border: none;
+}
+
+.quantity-input {
+  border-radius: 5px;
+}
+
+.button-cart-form {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.messages {
+  font-size: 1em;
+  border-radius: 12px;
+}
+
+/*navigation*/
+
+#desktopNav {
+  visibility: hidden;
+}
+
+#minimal-menu-bar {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#nav-right-elements {
+  display:inline-block;
+}
+
+.give-it-border {
+  border:1px;
+  border: solid black;
+}
+
+/*navigation mobile menu*/
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 0px;
+}
+
+/*hide mobile menu for large screens*/
+@media only screen and (min-width: 550px) {
+  #mobile-menu {
+    display: none;
+  }
+}
+
+/*hide desktop menu for small screens*/
+@media only screen and (max-width: 549px) {
+  #desktop-menu {
+    display: none;
+  }
+}

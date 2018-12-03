@@ -1,31 +1,78 @@
-<html>
+<html class="no-js">
 
 <head>
     <title>{% block page_title %}{% endblock %}</title>
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'vendor/css/foundation.min.css' %}" type='text/css' />
+    <link rel='stylesheet' href="{% static 'vendor/css/all.css' %}" type='text/css' />
+    <link rel='stylesheet' href="{% static 'css/app.css' %}" type='text/css' />
 </head>
 
 <body>
-    <h1>
-        {% block page_heading %}{% endblock %}
-    </h1>
-
     <nav>
-        <ul>
-            {% if user.is_authenticated %}
-            <li class="navigation-link"><a href="{% url 'profile' %}">Profile</a></li>
-            <li class="navigation-link"><a href="{% url 'logout' %}">Logout</a></li>
+      <div id="minimal-menu-bar">
+        <div class="give-it-border">
+          <button class="button" id="mobile-menu" onclick="showMobileMenu()"><i class="fas fa-bars"></i></button>
+          <button class="button" id="desktop-menu" onclick="showDesktopMenu()"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="give-it-border">
+          <font>You bug me</font>
+          <a href="{% url 'home' %}"><i class="fas fa-home"></i></a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
             {% else %}
-            <li class="navigation-link"><a href="{% url 'login' %}">Login</a></li>
-            <li class="navigation-link"><a href="{% url 'registration' %}">Register</a></li>
-            {% endif %}
-        </ul>
+            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a>
+          {% endif %}
+          <a href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart">{{ product_count }}</i></a>
+        </div>
+      </div>
+    </div>
+      <div class="flex-container align-spaced" id="desktopNav" onclick="hideDesktopMenu()">
+        {% if user.is_authenticated %}
+          <div><a href="{% url 'profile' %}">Profile</a></div>
+          <div><a href="{% url 'products' %}">Features/Issues</a></div>
+          <div><a href="{% url 'new_product' %}">New Features/Issues</a></div>
+          <div><a href="{% url 'product_area' %}">New Product Area</a></div>
+        {% else %}
+          <div class=""><a href="{% url 'registration' %}">Register</a></div>
+          <div class=""><a href="{% url 'products' %}">Features & Issues</a></div>
+        {% endif %}
+      </div>
     </nav>
 
-    <hr> {% if messages %}
-    <div>
-        {% for message in messages %} {{ message }} {% endfor %}
-    </div>
-    {% endif %} {% block content %}{% endblock %}
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+              <div class="callout small messages success" role="alert">{{ message|escape|safe }}</div>
+          {% elif message.tags == 'error' %}
+              <div class="callout small messages warning" role="alert">{{ message|escape|safe }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+
+      <div id="main">
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="hideMobileMenu()">&times;</a>
+          {% if user.is_authenticated %}
+            <div class=""><a href="{% url 'profile' %}">Profile</a></div>
+            <div class=""><a href="{% url 'products' %}">Features/Issues</a></div>
+            <div class=""><a href="{% url 'new_product' %}">New Features/Issues</a></div>
+            <div class=""><a href="{% url 'product_area' %}">New Product Area</a></div>
+          {% else %}
+            <div class=""><a href="{% url 'registration' %}">Register</a></div>
+            <div class=""><a href="{% url 'products' %}">Features & Issues</a></div>
+          {% endif %}
+        </div>
+        {% block content %}
+        {% endblock %}
+      </div>
+
+
+    <script src="{% static 'vendor/js/jquery.js' %}"></script>
+    <script src="{% static 'vendor/js/foundation.min.js' %}"></script>
+    <script src="{% static 'vendor/js/fontawesome.min.js' %}"></script>
+    <script src="{% static 'vendor/js/what-input.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 </body>
 
 </html>

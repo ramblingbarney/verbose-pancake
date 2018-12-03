@@ -1,23 +1,63 @@
+import os
 from django.db import models
+from django.forms import ModelForm
+from django.core.validators import FileExtensionValidator
+
+class ProductArea(models.Model):
+    name = models.CharField(max_length=254, blank=False)
+
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
-    name = models.CharField(max_length=254, default='')
-    description = models.TextField()
-    # this the minimum amout required to fix the issue
-    min_payment = models.DecimalField(max_digits=6, decimal_places=2)
+    THREE_CHOICES = (
+        ('L', 'Low'),
+        ('M', 'Medium'),
+        ('H', 'High'),
+    )
+
+    STATUS = (
+        ('T', 'To Do'),
+        ('D', 'Doing'),
+        ('C', 'Complete'),
+    )
+
+    PRODUCT_TYPE = (
+        ('I', 'Issue'),
+        ('F', 'Feature'),
+    )
+
+    name = models.CharField(max_length=254, blank=False)
+    description = models.TextField(blank=False)
+    # this is the amount to be paid for the feature/issue
+    # to be added to the total_amount_paid
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     # this is the cumulative amount paid by users to fix the issue
-    total_amount_paid = models.DecimalField(max_digits=6, decimal_places=2)
+    total_amount_paid = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     # product area is networking, front ui, backend, db report
-    product_area = models.CharField(max_length=254, default='')
+    product_area = models.ForeignKey(ProductArea, on_delete=models.CASCADE)
     # product_need is urgency low, medium or high
-    product_need = models.CharField(max_length=254, default='')
+    product_need = models.CharField(max_length=1, choices=THREE_CHOICES)
     # product_complexity is urgency low, medium or high
-    product_complexity = models.CharField(max_length=254, default='')
+    product_complexity = models.CharField(max_length=1, choices=THREE_CHOICES)
+    # status of the freature or issue
+    status = models.CharField(max_length=1, choices=STATUS)
+    # product type bug/issue or feature
+    product_type = models.CharField(max_length=1, choices=PRODUCT_TYPE)
+    # votes for bugs/issues only
+    votes = models.IntegerField(default=0)
     # image of product and/or proposed functional enhancement
     image = models.ImageField(upload_to='images')
     # technical documenation related to the product
     # and/or proposed functional enhancement
-    product_documents = models.ImageField(upload_to='product_documents')
+    product_document = models.FileField(upload_to='product_documents',
+        validators=[FileExtensionValidator(
+            allowed_extensions=['pdf','doc', 'docx','txt'])])
+
+    @property
+    def filename(self):
+            return os.path.basename(self.product_document.name)
 
     def __str__(self):
         return self.name
