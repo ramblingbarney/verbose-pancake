@@ -8,7 +8,7 @@ from django.core import management
 from django.core.management.commands import loaddata
 
 
-class DesktopProductFeaturesIssuesTest(unittest.TestCase):
+class DesktopProductViewsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -21,7 +21,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             'products/fixtures/products-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         cls.driver = webdriver.Chrome(options=options)
 
     @classmethod
@@ -38,7 +38,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             "//li[contains(@class, 'accordion-item is-active')]")
 
         self.assertEqual(
-            len(elements), 2)
+            len(elements), 4)
 
     def test_all_features_issues(self):
 
@@ -50,7 +50,9 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         elements_list = []
 
-        test = ['Description UI Issue', 'Description Networking Feature']
+        test = [
+            'Description UI Issue', 'Description Networking Feature',
+            'Description Networking Feature', 'Description UI Issue']
 
         for e in elements:
             elements_list.append(e.text)
@@ -59,9 +61,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
 # TODO: add to cart update quantity not working
 # TODO: add 1 vote
+# TODO: test profile view
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
-
-
-# TODO: test profile view
