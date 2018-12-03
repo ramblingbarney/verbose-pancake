@@ -86,23 +86,6 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
     def test_add_new_issue(self):
 
-        self.driver.get("http://localhost:8000")
-        self.driver.implicitly_wait(0)  # seconds
-
-        self.driver.find_element_by_xpath(
-            "//i[contains(@class, 'fa-sign-in-alt')]").click()
-
-        self.driver.implicitly_wait(0)  # seconds
-
-        self.driver.find_element_by_id(
-            'id_username').send_keys('conor@conor.com')
-        self.driver.find_element_by_id(
-            'id_password').send_keys('example1aslkfjlksjflaf')
-        self.driver.find_element_by_id(
-            'id_login_button').click()
-
-        self.driver.implicitly_wait(0)  # seconds
-
         self.driver.get("http://localhost:8000/products/new")
         self.driver.implicitly_wait(0)  # seconds
 
