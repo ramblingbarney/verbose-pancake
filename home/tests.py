@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+
 class TestTreatmentViews(TestCase):
     ''' test the treatments view '''
 

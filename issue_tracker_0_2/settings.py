@@ -130,8 +130,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 AUTHENTICATION_BACKENDS = [
-'accounts.backends.EmailAuth',
-'django.contrib.auth.backends.ModelBackend'
+    'accounts.backends.EmailAuth',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 STATIC_URL = '/static/'
@@ -139,5 +139,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-TASK_UPLOAD_FILE_TYPES = ['pdf', 'vnd.oasis.opendocument.text','vnd.ms-excel','msword','application',]
+TASK_UPLOAD_FILE_TYPES = ['pdf', 'vnd.oasis.opendocument.text', 'vnd.ms-excel', 'msword', 'application']
 TASK_UPLOAD_FILE_MAX_SIZE = "5242880"

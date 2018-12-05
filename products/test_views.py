@@ -16,9 +16,6 @@ class DesktopProductViewsTest(unittest.TestCase):
         management.call_command(
             'loaddata',
             'products/fixtures/products-data.json', verbosity=0)
-        management.call_command(
-            loaddata.Command(),
-            'products/fixtures/products-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -62,6 +59,7 @@ class DesktopProductViewsTest(unittest.TestCase):
 # TODO: add to cart update quantity not working
 # TODO: add 1 vote
 # TODO: test profile view
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')

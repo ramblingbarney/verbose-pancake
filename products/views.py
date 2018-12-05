@@ -11,6 +11,7 @@ def all_products(request):
     products = Product.objects.all()
     return render(request, "products.html", {"products": products})
 
+
 @login_required
 def new_product(request):
     new_product_form = NewProductForm()
@@ -27,6 +28,7 @@ def new_product(request):
 
     args = {'new_product_form': new_product_form}
     return render(request, 'new_product.html', args)
+
 
 def product_area(request):
     product_area_form = ProductAreaForm()

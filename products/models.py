@@ -3,6 +3,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.core.validators import FileExtensionValidator
 
+
 class ProductArea(models.Model):
     name = models.CharField(max_length=254, blank=False)
 
@@ -34,12 +35,13 @@ class Product(models.Model):
     # to be added to the total_amount_paid
     price = models.DecimalField(max_digits=6, decimal_places=2)
     # this is the cumulative amount paid by users to fix the issue
-    total_amount_paid = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    # product area is networking, front ui, backend, db report
+    total_amount_paid = models.DecimalField(
+        max_digits=6, decimal_places=2, default=0.00)
+    # product area
     product_area = models.ForeignKey(ProductArea, on_delete=models.CASCADE)
-    # product_need is urgency low, medium or high
+    # product_need is urgency
     product_need = models.CharField(max_length=1, choices=THREE_CHOICES)
-    # product_complexity is urgency low, medium or high
+    # product_complexity is urgency
     product_complexity = models.CharField(max_length=1, choices=THREE_CHOICES)
     # status of the freature or issue
     status = models.CharField(max_length=1, choices=STATUS)
@@ -51,9 +53,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images')
     # technical documenation related to the product
     # and/or proposed functional enhancement
-    product_document = models.FileField(upload_to='product_documents',
+    product_document = models.FileField(
+        upload_to='product_documents',
         validators=[FileExtensionValidator(
-            allowed_extensions=['pdf','doc', 'docx','txt'])])
+            allowed_extensions=['pdf', 'doc', 'docx', 'txt'])])
 
     @property
     def filename(self):
