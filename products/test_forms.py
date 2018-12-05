@@ -16,9 +16,6 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         management.call_command(
             'loaddata',
             'products/fixtures/products-data.json', verbosity=0)
-        management.call_command(
-            loaddata.Command(),
-            'products/fixtures/products-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -28,7 +25,6 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
     def tearDownClass(cls):
         cls.driver.quit()
         super().tearDownClass()
-
 
     def test_add_new_feature(self):
 
@@ -53,19 +49,20 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id('id_name').send_keys('Product 3')
-        self.driver.find_element_by_id('id_description').send_keys('Product Description')
+        self.driver.find_element_by_id(
+            'id_description').send_keys('Product Description')
         self.driver.find_element_by_id('id_price').send_keys('3')
 
-        select = Select(self.driver.find_element_by_id('id_product_area'))
-        select.select_by_visible_text('Networking')
-        select = Select(self.driver.find_element_by_id('id_product_need'))
-        select.select_by_visible_text('Medium')
-        select = Select(self.driver.find_element_by_id('id_product_complexity'))
-        select.select_by_visible_text('Medium')
-        select = Select(self.driver.find_element_by_id('id_status'))
-        select.select_by_visible_text('Doing')
-        select = Select(self.driver.find_element_by_id('id_product_type'))
-        select.select_by_visible_text('Feature')
+        Select(self.driver.find_element_by_id(
+            'id_product_area')).select_by_visible_text('Networking')
+        Select(self.driver.find_element_by_id(
+            'id_product_need')).select_by_visible_text('Medium')
+        Select(self.driver.find_element_by_id(
+            'id_product_complexity')).select_by_visible_text('Medium')
+        Select(self.driver.find_element_by_id(
+            'id_status')).select_by_visible_text('Doing')
+        Select(self.driver.find_element_by_id(
+            'id_product_type')).select_by_visible_text('Feature')
 
         self.driver.find_element_by_id(
             'id_image').send_keys(
@@ -74,7 +71,8 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             'id_product_document').send_keys(
                 os.getcwd() + '/products/fixtures/small_sharp_tools_pragprog_connections.pdf')
 
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Save')]").click()
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
 
         self.driver.get("http://localhost:8000/products")
         self.driver.implicitly_wait(0)  # seconds
@@ -90,19 +88,20 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id('id_name').send_keys('Product 4')
-        self.driver.find_element_by_id('id_description').send_keys('Product Description')
+        self.driver.find_element_by_id(
+            'id_description').send_keys('Product Description')
         self.driver.find_element_by_id('id_price').send_keys('4')
 
-        select = Select(self.driver.find_element_by_id('id_product_area'))
-        select.select_by_visible_text('UI')
-        select = Select(self.driver.find_element_by_id('id_product_need'))
-        select.select_by_visible_text('Low')
-        select = Select(self.driver.find_element_by_id('id_product_complexity'))
-        select.select_by_visible_text('Low')
-        select = Select(self.driver.find_element_by_id('id_status'))
-        select.select_by_visible_text('To Do')
-        select = Select(self.driver.find_element_by_id('id_product_type'))
-        select.select_by_visible_text('Issue')
+        Select(self.driver.find_element_by_id(
+            'id_product_area')).select_by_visible_text('UI')
+        Select(self.driver.find_element_by_id(
+            'id_product_need')).select_by_visible_text('Low')
+        Select(self.driver.find_element_by_id(
+            'id_product_complexity')).select_by_visible_text('Low')
+        Select(self.driver.find_element_by_id(
+            'id_status')).select_by_visible_text('To Do')
+        Select(self.driver.find_element_by_id(
+            'id_product_type')).select_by_visible_text('Issue')
 
         self.driver.find_element_by_id(
             'id_image').send_keys(
@@ -111,7 +110,8 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             'id_product_document').send_keys(
                 os.getcwd() + '/products/fixtures/small_sharp_tools_pragprog_connections.pdf')
 
-        self.driver.find_element_by_xpath("//*[contains(text(), 'Save')]").click()
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
 
         self.driver.get("http://localhost:8000/products")
         self.driver.implicitly_wait(0)  # seconds
@@ -120,6 +120,44 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             "//li[contains(@class, 'accordion-item is-active')]")
 
         self.assertEqual(len(elements), 4)
+
+    def test_add_new_form_validation_error_name(self):
+
+        self.driver.get("http://localhost:8000/products/new")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('id_name').send_keys('Product 2')
+        self.driver.find_element_by_id(
+            'id_description').send_keys('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?')
+        self.driver.find_element_by_id('id_price').send_keys('20.00')
+
+        Select(self.driver.find_element_by_id(
+            'id_product_area')).select_by_visible_text('Networking')
+        Select(self.driver.find_element_by_id(
+            'id_product_need')).select_by_visible_text('Medium')
+        Select(self.driver.find_element_by_id(
+            'id_product_complexity')).select_by_visible_text('Medium')
+        Select(self.driver.find_element_by_id(
+            'id_status')).select_by_visible_text('Complete')
+        Select(self.driver.find_element_by_id(
+            'id_product_type')).select_by_visible_text('Feature')
+
+        self.driver.find_element_by_id(
+            'id_image').send_keys(
+                os.getcwd()+'/products/fixtures/startbootstrap-sb-admin-gh-pages.zip')
+        self.driver.find_element_by_id(
+            'id_product_document').send_keys(
+                os.getcwd() + '/products/fixtures/cityam-2018-06-28-5b341f418bcd3.pdf')
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+
+        elements = self.driver.find_element_by_xpath(
+            "//ul[contains(@class, 'errorlist')]")
+
+        warnings_list = '<li>name<ul class="errorlist"><li>Name must be unique</li></ul></li><li>image<ul class="errorlist"><li>Upload a valid image. The file you uploaded was either not an image or a corrupted image.</li></ul></li><li>product_document<ul class="errorlist"><li>Please keep filesize under 5.0&nbsp;MB. Current filesize 15.6&nbsp;MB</li></ul></li>'
+
+        self.assertEqual(elements.get_attribute('innerHTML'), warnings_list)
 
 
 if __name__ == '__main__':

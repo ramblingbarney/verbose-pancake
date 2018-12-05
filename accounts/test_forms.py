@@ -76,7 +76,8 @@ class SiteLoginLogout(StaticLiveServerTestCase):
             'id_register_button').click()
         self.driver.implicitly_wait(0)  # seconds
 
-        elements_count = self.driver.find_elements_by_xpath("//*[contains(text(), 'Email address must be unique')]")
+        elements_count = self.driver.find_elements_by_xpath(
+            "//*[contains(text(), 'Email address must be unique')]")
 
         self.assertEqual(len(elements_count), 1)
 
@@ -106,7 +107,8 @@ class SiteLoginLogout(StaticLiveServerTestCase):
             'id_register_button').click()
         self.driver.implicitly_wait(0)  # seconds
 
-        elements_count = self.driver.find_elements_by_xpath("//*[contains(text(), 'A user with that username already exists')]")
+        elements_count = self.driver.find_elements_by_xpath(
+            "//*[contains(text(), 'A user with that username already exists')]")
 
         self.assertEqual(len(elements_count), 1)
 
@@ -136,7 +138,8 @@ class SiteLoginLogout(StaticLiveServerTestCase):
             'id_register_button').click()
         self.driver.implicitly_wait(0)  # seconds
 
-        elements_count = self.driver.find_elements_by_xpath("//*[contains(text(), 'Passwords must match')]")
+        elements_count = self.driver.find_elements_by_xpath(
+            "//*[contains(text(), 'Passwords must match')]")
 
         self.assertEqual(len(elements_count), 1)
 
@@ -166,7 +169,8 @@ class SiteLoginLogout(StaticLiveServerTestCase):
             'id_register_button').click()
         self.driver.implicitly_wait(0)  # seconds
 
-        elements_count = self.driver.find_elements_by_xpath("//*[contains(text(), 'You have successfully registered')]")
+        elements_count = self.driver.find_elements_by_xpath(
+            "//*[contains(text(), 'You have successfully registered')]")
 
     def test_login_form(self):
 

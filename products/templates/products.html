@@ -30,14 +30,14 @@
             <tr>
               <td>
                 <div data-id="{{product.id}}" class="image-detail" onclick="toggleFullSize(this)">
-                  <img class="thumbnail-image-line-detail" src="url('{{ MEDIA_URL }}{{ product.image }}">
+                  <img class="thumbnail-image-line-detail" src="{{ MEDIA_URL }}{{ product.image }}">
                 </div>
                 <div class="detail-paragraph">
                   <div class="description-element">
                     <h3 class="description-heading">Description {{ product.product_area }} {{ product.get_product_type_display }}</h3>
                   </div>
                   <div class="description-element">
-                    <font class="description-text">{{ product.description }}</font>
+                    <span class="description-text">{{ product.description }}</span>
                   </div>
                   <div>
                     <p class="file-name"><strong>Need:</strong> {{ product.get_product_need_display }}</p>
@@ -46,7 +46,7 @@
                   <div>
                     <strong class="file-name">Document:</strong>
                     <a href="{{ product.product_document.url }}" download="{{ product.file.name }}">
-                      <font class="file-name">{{ product.filename }}</font>
+                      <span class="file-name">{{ product.filename }}</span>
                     </a>
                   </div>
                 </div>
@@ -59,7 +59,7 @@
                       <p class="cart-column-text votes-label">Votes: {{ product.votes }}</p>
                       <form method="post" action="{% url 'add_to_cart' product.id %}">
                         <div class="input-group">
-                          <font class="input-group-label quantity-label cart-column-text">Quantity:</font>
+                          <span class="input-group-label quantity-label cart-column-text">Quantity:</span>
                           <input name='quantity' type="number" min="1" max="999" class="form-control input-group-field small quantity-input cart-column-text" placeholder="" required>
                         </div>
                         <input type="button" onclick="plusOneVote()" class="button small button-cart-form cart-column-text" value="+1 Vote">
@@ -68,7 +68,7 @@
                           <input type="submit" class="button small button-cart-form cart-column-text" value="Edit">
                         {% else %}
                           <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart"  disabled=true>
-                          <input type="submit" class="button small button-cart-form cart-column-text" value="Edit"  disabled=true>
+                          <input type="submit" class="button small button-cart-form cart-column-text" value="Edit" disabled=true>
                         {% endif %}
                       </form>
                     </div>

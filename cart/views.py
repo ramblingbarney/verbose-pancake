@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 
+
 def view_cart(request):
     """
     A view that renders the cart contents page
