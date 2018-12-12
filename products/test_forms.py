@@ -192,7 +192,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             "//span[@class='file-name']")
 
         self.assertEqual(
-            element.text, 'product_documents/Python_Tricks_Sample.pdf')
+            element.text, 'Python_Tricks_Sample.pdf')
 
     def test_edit_no_change_error_name(self):
 
