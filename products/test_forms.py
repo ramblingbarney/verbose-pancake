@@ -165,7 +165,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
             "//ul[contains(@class, 'errorlist')]")
 
         warnings_list = '<li>name<ul class="errorlist"><li>Name must be unique</li></ul></li><li>image<ul class="errorlist"><li>Upload a valid image. The file you uploaded was either not an image or a corrupted image.</li></ul></li><li>product_document<ul class="errorlist"><li>Please keep filesize under 5.0&nbsp;MB. Current filesize 15.6&nbsp;MB</li></ul></li>'
-
+        print(element.get_attribute('innerHTML'))
         self.assertEqual(element.get_attribute('innerHTML'), warnings_list)
 
     def test_edit_feature_name(self):
@@ -200,6 +200,11 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
     def test_edit_no_change_error_name(self):
 
         self.driver.get("http://localhost:8000/products/edit/5")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('id_name').clear()
+        self.driver.implicitly_wait(0)  # seconds
+        self.driver.find_element_by_id('id_name').send_keys('Product 2')
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_xpath(
