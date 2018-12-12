@@ -26,7 +26,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         cls.driver.quit()
         super().tearDownClass()
 
-    def test_add_new_feature(self):
+    def test_add_new_feature_without_image_or_document(self):
 
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
@@ -64,18 +64,23 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         Select(self.driver.find_element_by_id(
             'id_product_type')).select_by_visible_text('Feature')
 
-        self.driver.find_element_by_id(
-            'id_image').send_keys(
-                os.getcwd()+'/products/fixtures/IMG_4496.JPG')
-        self.driver.find_element_by_id(
-            'id_product_document').send_keys(
-                os.getcwd() + '/products/fixtures/small_sharp_tools_pragprog_connections.pdf')
-
         self.driver.find_element_by_xpath(
             "//*[contains(text(), 'Save')]").click()
 
         self.driver.get("http://localhost:8000/products")
         self.driver.implicitly_wait(0)  # seconds
+
+        elements = self.driver.find_elements_by_xpath(
+            '//div[@class="image-detail"]//img[@src]')
+
+        image_src = elements[2].get_attribute('src')
+
+        self.assertEqual(image_src, 'http://localhost:8000/media/images/image_placeholder.jpeg')
+
+        elements = self.driver.find_elements_by_xpath(
+            "//span[@class='file-name']")
+
+        self.assertEqual(elements[2].text, '')
 
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
@@ -121,7 +126,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.assertEqual(len(elements), 4)
 
-    def test_add_new_form_validation_error_name(self):
+    def test_add_new_form_validation_error(self):
 
         self.driver.get("http://localhost:8000/products/new")
         self.driver.implicitly_wait(0)  # seconds
@@ -152,10 +157,54 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         self.driver.find_element_by_xpath(
             "//*[contains(text(), 'Save')]").click()
 
-        elements = self.driver.find_element_by_xpath(
+        element = self.driver.find_element_by_xpath(
             "//ul[contains(@class, 'errorlist')]")
 
         warnings_list = '<li>name<ul class="errorlist"><li>Name must be unique</li></ul></li><li>image<ul class="errorlist"><li>Upload a valid image. The file you uploaded was either not an image or a corrupted image.</li></ul></li><li>product_document<ul class="errorlist"><li>Please keep filesize under 5.0&nbsp;MB. Current filesize 15.6&nbsp;MB</li></ul></li>'
+
+        self.assertEqual(element.get_attribute('innerHTML'), warnings_list)
+
+    def test_edit_feature_name(self):
+
+        self.driver.get("http://localhost:8000/products/edit/5")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('id_name').send_keys('2')
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        element = self.driver.find_element_by_xpath(
+            "//a[contains(@class, 'accordion-title issue')]")
+
+        self.assertEqual(element.text, 'Name: Product 12 Price: 10.00 Total Cumulative Donations: 10.00 Status: Doing')
+
+        element = self.driver.find_element_by_xpath(
+            '//div[@class="image-detail"]//img[@src]')
+
+        image_src = element.get_attribute('src')
+
+        self.assertEqual(image_src, 'http://localhost:8000/media/images/Conor_B_m8JZBno.jpg')
+
+        element = self.driver.find_element_by_xpath(
+            "//span[@class='file-name']")
+
+        self.assertEqual(
+            element.text, 'product_documents/Python_Tricks_Sample.pdf')
+
+    def test_edit_no_change_error_name(self):
+
+        self.driver.get("http://localhost:8000/products/edit/5")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+
+        elements = self.driver.find_element_by_xpath(
+            "//ul[contains(@class, 'errorlist')]")
+
+        warnings_list = '<li>Name must be unique</li>'
 
         self.assertEqual(elements.get_attribute('innerHTML'), warnings_list)
 

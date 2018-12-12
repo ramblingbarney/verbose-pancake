@@ -55,12 +55,27 @@ class Product(models.Model):
     # and/or proposed functional enhancement
     product_document = models.FileField(
         upload_to='product_documents',
+        blank=True,
         validators=[FileExtensionValidator(
             allowed_extensions=['pdf', 'doc', 'docx', 'txt'])])
 
     @property
     def filename(self):
             return os.path.basename(self.product_document.name)
+
+    def save(self, *args, **kwargs):
+        # object already exists in db
+        if self.pk:
+            old_model = Product.objects.get(pk=self.pk)
+
+            if self.image is None:
+                self.image = old_model.image
+
+            if self.product_document is None:
+                self.product_document = old_model.product_document
+
+        # call the inherited save method
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

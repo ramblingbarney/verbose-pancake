@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block page_title %}Create Features/Issue Requests Page{% endblock %}
+{% block content %}
+{% load widget_tweaks %}
+
+<form enctype="multipart/form-data" method="post" novalidate>
+  {% csrf_token %}
+
+  {{ new_product_form.non_field_errors }}
+
+  {% for hidden_field in new_product_form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+  {% endfor %}
+
+  {{ form.errors }}
+
+  <table border="1">
+    {% for field in new_product_form.visible_fields %}
+      <tr>
+        <th>{{ field.label_tag }}</th>
+        <td>
+          {{ field.errors }}
+          {% render_field field style="border: 2px dashed red;" placeholder=field.name %}
+          {{ field.help_text }}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+
+  <button type="submit" class="button small product-save">Save</button>
+  <a href="{% url 'products' %}"><button type="button" class="button small product-cancel">Cancel</button></a>
+</form>
+
+{% endblock %}

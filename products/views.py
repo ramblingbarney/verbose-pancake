@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import Product
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -6,7 +6,6 @@ from .forms import NewProductForm, ProductAreaForm
 from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
 def all_products(request):
     products = Product.objects.all()
     return render(request, "products.html", {"products": products})
@@ -28,6 +27,31 @@ def new_product(request):
 
     args = {'new_product_form': new_product_form}
     return render(request, 'new_product.html', args)
+
+
+@login_required
+def edit_product(request, id=None, template_name='edit_product.html'):
+    if id:
+        product = get_object_or_404(Product, id=id)
+
+    new_product_form = NewProductForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=product,
+        id=id)
+
+    if request.POST and new_product_form.has_changed():
+
+        if new_product_form.is_valid():
+            product.save()
+            return redirect('products')
+
+    elif request.POST:
+        messages.add_message(
+            request, messages.ERROR, 'No changes to save')
+
+    args = {'new_product_form': new_product_form, 'id': id}
+    return render(request, template_name, args)
 
 
 def product_area(request):

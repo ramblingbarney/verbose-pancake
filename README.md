@@ -128,60 +128,39 @@ The deployed version (master_heroku) on heroku has the following differences fro
     * Attached document to download
     * Votes with default value of 0
 
+### Add new Feature or Issue Form Errors
 
-def test_add_new_feature(self):
+* As a logged in user I want to be able to create a Feature or Issue (url route /products/new) and be prevented from using a 'Name' that exists in the database, upload an image file that is not an image or uploading a document that is too large or not an accepted file type.
 
-    self.driver.get("http://localhost:8000")
-    self.driver.implicitly_wait(0)  # seconds
+* Acceptance criteria:
+  * name - Name must be unique
+  * image - Upload a valid image. The file you uploaded was either not an image or a corrupted image.
+  * product_document - Please keep filesize under 5.0MB. Current filesize N MB
 
-    self.driver.find_element_by_xpath(
-        "//i[contains(@class, 'fa-sign-in-alt')]").click()
+### Add new Feature without Image or Document
 
-    self.driver.implicitly_wait(0)  # seconds
+* As a logged in user I want to be able to create a Feature (url route /products/new) without an 'Image' file or 'Product Document' file
 
-    self.driver.find_element_by_id(
-        'id_username').send_keys('conor@conor.com')
-    self.driver.find_element_by_id(
-        'id_password').send_keys('example1aslkfjlksjflaf')
-    self.driver.find_element_by_id(
-        'id_login_button').click()
+* Acceptance criteria:
+  * name - Name must be unique
+  * image - A placeholder image will be shown instead of the Upload image
+  * Document - No file will be shown
 
-    self.driver.implicitly_wait(0)  # seconds
+### Edit Feature Name
 
-    self.driver.get("http://localhost:8000/products/new")
-    self.driver.implicitly_wait(0)  # seconds
+* As a logged in user I want to be able to edit the name of a feature and it be reflected on the name of the same feature on the all features and issues page.
 
-    self.driver.find_element_by_id('id_name').send_keys('Product 3')
-    self.driver.find_element_by_id('id_description').send_keys('Product Description')
-    self.driver.find_element_by_id('id_price').send_keys('3')
+* Acceptance criteria:
+  * Name will show the amended feature name
+  * Image will be unchanged and no error message will be shown
+  * Document Image will be unchanged and no error message will be shown
 
-    select = Select(self.driver.find_element_by_id('id_product_area'))
-    select.select_by_visible_text('Networking')
-    select = Select(self.driver.find_element_by_id('id_product_need'))
-    select.select_by_visible_text('Medium')
-    select = Select(self.driver.find_element_by_id('id_product_complexity'))
-    select.select_by_visible_text('Medium')
-    select = Select(self.driver.find_element_by_id('id_status'))
-    select.select_by_visible_text('Doing')
-    select = Select(self.driver.find_element_by_id('id_product_type'))
-    select.select_by_visible_text('Feature')
+### Edit Feature (save without any changes)
 
-    self.driver.find_element_by_id(
-        'id_image').send_keys(
-            os.getcwd()+'/products/fixtures/IMG_4496.JPG')
-    self.driver.find_element_by_id(
-        'id_product_document').send_keys(
-            os.getcwd() + '/products/fixtures/small_sharp_tools_pragprog_connections.pdf')
+* As a logged in user I want to be able to edit a feature and be prevented from using a 'Name' that exists in the database
 
-    self.driver.find_element_by_xpath("//*[contains(text(), 'Save')]").click()
-
-    self.driver.get("http://localhost:8000/products")
-    self.driver.implicitly_wait(0)  # seconds
-
-    elements = self.driver.find_elements_by_xpath(
-        "//li[contains(@class, 'accordion-item is-active')]")
-
-    self.assertEqual(len(elements), 3)
+* Acceptance criteria:
+  * name - Name must be unique
 
 
 ## Manual Testing

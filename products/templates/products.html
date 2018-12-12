@@ -45,9 +45,11 @@
                   </div>
                   <div>
                     <strong class="file-name">Document:</strong>
-                    <a href="{{ product.product_document.url }}" download="{{ product.file.name }}">
-                      <span class="file-name">{{ product.filename }}</span>
-                    </a>
+                    {% if product.product_document %}
+                      <a href="{{ product.product_document.url }}" download="{{ product.file.name }}">
+                        <span class="file-name">{{ product.filename }}</span>
+                      </a>
+                    {% endif %}
                   </div>
                 </div>
               </td>
@@ -65,10 +67,10 @@
                         <input type="button" onclick="plusOneVote()" class="button small button-cart-form cart-column-text" value="+1 Vote">
                         {% if user.is_authenticated %}
                           <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart">
-                          <input type="submit" class="button small button-cart-form cart-column-text" value="Edit">
+                          <a href="{% url 'edit_product' product.id %}"><button type="button" class="button small button-cart-form cart-column-text">Edit</button></a>
                         {% else %}
                           <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart"  disabled=true>
-                          <input type="submit" class="button small button-cart-form cart-column-text" value="Edit" disabled=true>
+                          <a href="{% url 'edit_product' product.id %}"><button type="button" class="button small button-cart-form cart-column-text" disabled=true>Edit</button></a>
                         {% endif %}
                       </form>
                     </div>

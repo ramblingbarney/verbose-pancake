@@ -32,29 +32,21 @@ class DesktopProductViewsTest(unittest.TestCase):
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
-            "//li[contains(@class, 'accordion-item is-active')]")
-
-        self.assertEqual(
-            len(elements), 4)
-
-    def test_all_features_issues(self):
-
-        self.driver.get("http://localhost:8000/products")
-        self.driver.implicitly_wait(0)  # seconds
-
-        elements = self.driver.find_elements_by_xpath(
             "//div/h3[contains(@class, 'description-heading')]")
 
         elements_list = []
 
-        test = [
-            'Description UI Issue', 'Description Networking Feature',
-            'Description Networking Feature', 'Description UI Issue']
+        test = ['Description UI Issue', 'Description Networking Feature']
 
         for e in elements:
             elements_list.append(e.text)
 
         self.assertListEqual(elements_list, test)
+
+        elements = self.driver.find_elements_by_xpath(
+            "//li[contains(@class, 'accordion-item is-active')]")
+
+        self.assertEqual(len(elements), 2)
 
 # TODO: add to cart update quantity not working
 # TODO: add 1 vote
