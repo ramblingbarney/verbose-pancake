@@ -71,6 +71,9 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             '//div[@class="image-detail"]//img[@src]')
 
+        for x in elements:
+            print(x.get_attribute('src'))
+
         image_src = elements[2].get_attribute('src')
 
         self.assertEqual(image_src, 'http://localhost:8000/media/images/image_placeholder.jpeg')
@@ -122,7 +125,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 4)
+        self.assertEqual(len(elements), 3)
 
     def test_add_new_form_validation_error(self):
 
