@@ -76,7 +76,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         # image_src = elements[2].get_attribute('src')
 
-        self.assertEqual(image_src, 'http://localhost:8000/media/images/image_placeholder.jpeg')
+        # self.assertEqual(image_src, 'http://localhost:8000/media/images/image_placeholder.jpeg')
 
         elements = self.driver.find_elements_by_xpath(
             "//span[@class='file-name']")
