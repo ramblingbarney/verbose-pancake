@@ -66,8 +66,6 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.find_element_by_xpath(
             "//*[contains(text(), 'Save')]").click()
-
-        self.driver.get("http://localhost:8000/products")
         self.driver.implicitly_wait(0)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
