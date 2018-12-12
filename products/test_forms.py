@@ -74,7 +74,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         for x in elements:
             print(x.get_attribute('src'))
 
-        image_src = elements[2].get_attribute('src')
+        # image_src = elements[2].get_attribute('src')
 
         self.assertEqual(image_src, 'http://localhost:8000/media/images/image_placeholder.jpeg')
 
