@@ -78,7 +78,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//div/strong[@class='file-name']")
 
-        self.assertEqual(elements[2].text, '')
+        self.assertEqual(elements[2].text, 'Document:')
 
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
