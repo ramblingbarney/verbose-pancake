@@ -50,7 +50,7 @@ class DesktopProductViewsTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 3)
+        self.assertEqual(len(elements), 4)
 
 # TODO: add to cart update quantity not working
 # TODO: add 1 vote
