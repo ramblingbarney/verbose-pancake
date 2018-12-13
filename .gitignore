@@ -5,6 +5,8 @@ man*
 mail*
 bin*
 media/cache/*
+media/images/*
+media/product_documents/*
 *.pyc
 */*/*/__pycache__/
 */*/__pycache__/
