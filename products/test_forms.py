@@ -66,25 +66,19 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.find_element_by_xpath(
             "//*[contains(text(), 'Save')]").click()
-        self.driver.implicitly_wait(0)  # seconds
+        self.driver.implicitly_wait(3)  # seconds
 
         elements = self.driver.find_elements_by_xpath(
             '//div[@class="image-detail"]//img[@src]')
 
-        for x in elements:
-            print(x.get_attribute('src'))
+        elements = self.driver.find_elements_by_xpath('//div[img/@src="/media/images/image_placeholder.jpeg"]')
 
-        # image_src = elements[2].get_attribute('src')
-
-        # self.assertEqual(image_src, 'http://localhost:8000/media/images/image_placeholder.jpeg')
+        self.assertEqual(len(elements), 1)
 
         elements = self.driver.find_elements_by_xpath(
-            "//span[@class='file-name']")
+            "//div/strong[@class='file-name']")
 
-        for x in elements:
-            print(x.text)
-
-        # self.assertEqual(elements[2].text, '')
+        self.assertEqual(elements[2].text, 'Document:')
 
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")

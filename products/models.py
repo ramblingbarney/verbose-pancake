@@ -50,7 +50,7 @@ class Product(models.Model):
     # votes for bugs/issues only
     votes = models.IntegerField(default=0)
     # image of product and/or proposed functional enhancement
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to='images',blank=True)
     # technical documenation related to the product
     # and/or proposed functional enhancement
     product_document = models.FileField(

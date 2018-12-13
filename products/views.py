@@ -21,6 +21,7 @@ def new_product(request):
             form.save()
             messages.add_message(
                 request, messages.SUCCESS, 'Feature/Issue created')
+            return redirect('products')
         else:
             messages.add_message(
                 request, messages.ERROR, form.errors)
