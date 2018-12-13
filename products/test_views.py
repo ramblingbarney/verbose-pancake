@@ -37,9 +37,10 @@ class DesktopProductViewsTest(unittest.TestCase):
         elements_list = []
 
         test = [
-            'Description UI Issue',
-            'Description Networking Feature',
-            'Description UI Issue']
+        'Description UI Issue',
+       'Description Networking Feature',
+       'Description Networking Feature',
+       'Description UI Issue']
 
         for e in elements:
             elements_list.append(e.text)
