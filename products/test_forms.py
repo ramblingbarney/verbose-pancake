@@ -122,7 +122,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 3)
+        self.assertEqual(len(elements), 4)
 
     def test_add_new_form_validation_error(self):
 
