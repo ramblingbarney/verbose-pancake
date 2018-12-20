@@ -12,9 +12,48 @@ function toggleFullSize(element){
   element.classList.toggle('image-detail-full-size');
 }
 
-// product vote button add one vote
+// ajax product vote button add one vote
 function plusOneVote(element){
-  alert('adding vote');
+
+    var voteId = $(element).attr("data-id");
+    var csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+        url : '', // the endpoint
+        type : 'POST', // http method
+        data : { vote_id : voteId, 'csrfmiddlewaretoken': csrftoken }, // data sent with the post request
+
+        // handle a successful response
+        success : function(data) {
+          var originalVoteNumber = Number($("span[data-id=" + data +"]").text());
+          // change the vote number red
+          $("span[data-id=" + data +"]").css('color', 'red');
+          // increment text by 1 to match database record value
+          $("span[data-id=" + data +"]").text(originalVoteNumber + 1);
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 // Toggle Desktop Menu bar
