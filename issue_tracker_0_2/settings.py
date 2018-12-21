@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'django_nose',
+    'datetimeutc',
     'home',
     'accounts',
     'products',
@@ -119,6 +119,7 @@ USE_I18N = True
 
 USE_L10N = True
 
+TIME_ZONE = 'Europe/London'
 USE_TZ = True
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"

@@ -5,7 +5,7 @@ The purpose of this application is provide an easy way to track bugs/features fo
 ## Prerequisites
 
 * [Python3](https://www.python.org/)
-* [Chromedriver] available in the 'user' path executing tests (https://sites.google.com/a/chromium.org/chromedriver/downloads)
+* [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) available in the 'user' path executing tests
 
 ## Wireframes
 

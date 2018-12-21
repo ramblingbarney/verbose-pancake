@@ -117,6 +117,11 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-sign-out-alt')]").click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
         self.driver.find_element_by_id('desktop-menu').click()
 
         self.driver.implicitly_wait(0)  # seconds
@@ -158,19 +163,26 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id(
-            'id_username').send_keys('eddie')
+            'id_username').send_keys('eddie1')
         self.driver.find_element_by_id(
-            'id_email').send_keys('eddie@irvine.com')
+            'id_email').send_keys('eddie1@irvine.com')
         self.driver.find_element_by_id(
-            'id_password1').send_keys('example2')
+            'id_password1').send_keys('example21')
         self.driver.find_element_by_id(
-            'id_password2').send_keys('example2')
+            'id_password2').send_keys('example21')
         self.driver.find_element_by_id(
             'id_register_button').click()
         self.driver.implicitly_wait(0)  # seconds
 
         elements_count = self.driver.find_elements_by_xpath(
             "//*[contains(text(), 'You have successfully registered')]")
+
+        self.assertEqual(len(elements_count), 1)
+
+        elements_count = self.driver.find_elements_by_xpath(
+            "//*[contains(text(), 'pages about the site')]")
+
+        self.assertEqual(len(elements_count), 1)
 
     def test_login_form(self):
 

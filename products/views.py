@@ -1,19 +1,22 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
-from .models import Product
+from .models import Product, ProductVote
 from django.http import HttpResponse
 from django.contrib import messages
 from .forms import NewProductForm, ProductAreaForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
-from django.db.models import F
 
 
 @csrf_protect
 def all_products(request):
     if request.is_ajax() and request.method == 'POST':
-        Product.objects.filter(
-            id=request.POST['vote_id']).update(votes=F('votes') + 1)
+        product = Product.objects.filter(
+            id=request.POST['vote_id'])
+
+        ProductVote.objects.create(product=product[0])
+
         return HttpResponse(request.POST['vote_id'])
+
     else:
         products = Product.objects.all()
         return render(request, "products.html", {"products": products})

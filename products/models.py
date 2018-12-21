@@ -1,7 +1,9 @@
 import os
 from django.db import models
 from django.forms import ModelForm
+from django.db.models import Count
 from django.core.validators import FileExtensionValidator
+from datetimeutc.fields import DateTimeUTCField
 
 
 class ProductArea(models.Model):
@@ -47,10 +49,8 @@ class Product(models.Model):
     status = models.CharField(max_length=1, choices=STATUS)
     # product type bug/issue or feature
     product_type = models.CharField(max_length=1, choices=PRODUCT_TYPE)
-    # votes for bugs/issues only
-    votes = models.IntegerField(default=0)
     # image of product and/or proposed functional enhancement
-    image = models.ImageField(upload_to='images',blank=True)
+    image = models.ImageField(upload_to='images', blank=True)
     # technical documenation related to the product
     # and/or proposed functional enhancement
     product_document = models.FileField(
@@ -61,7 +61,11 @@ class Product(models.Model):
 
     @property
     def filename(self):
-            return os.path.basename(self.product_document.name)
+        return os.path.basename(self.product_document.name)
+
+    @property
+    def total_votes(self):
+        return self.productvote_set.count()
 
     def save(self, *args, **kwargs):
         # object already exists in db
@@ -79,3 +83,11 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProductVote(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    submitted = DateTimeUTCField(auto_now_add=True)
+
+    def __str__(self):
+        return "%s who voted %s" % self.product

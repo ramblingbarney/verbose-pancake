@@ -58,7 +58,14 @@
                   {% csrf_token %}
                   <div class="row grid-x">
                     <div class="small-5 large-10 columns add-to-cart-vote-form">
-                      <p class="cart-column-text votes-label">Votes: <span data-id="{{product.id}}">{{ product.votes }}</span></p>
+                      <p class="cart-column-text votes-label">Votes:
+                          <span data-id="{{product.id}}">
+                          {% if product.product.total_votes %}
+                            {{ product.total_votes }}
+                          {% else %}
+                          0
+                          {% endif %}
+                          </span></p>
                       <form method="post" action="{% url 'add_to_cart' product.id %}">
                         <div class="input-group">
                           <span class="input-group-label quantity-label cart-column-text">Quantity:</span>
@@ -88,3 +95,5 @@
 </ul>
 
 {% endblock %}
+
+<!-- TODO: if reduced image shorter than description, documents the wrap below, clear left -->

@@ -15,7 +15,7 @@ class NewProductForm(forms.ModelForm):
         fields = [
             'name', 'description', 'price', 'product_area',
             'product_need', 'product_complexity', 'status', 'product_type',
-            'votes', 'image', 'product_document']
+            'image', 'product_document']
 
     def __init__(self, *args, **kwargs):
         self.id = kwargs.pop('id', None)
