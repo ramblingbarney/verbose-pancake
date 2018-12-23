@@ -87,7 +87,8 @@ class Product(models.Model):
 
 class ProductVote(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user_id = models.IntegerField()
     submitted = DateTimeUTCField(auto_now_add=True)
 
     def __str__(self):
-        return "%s who voted %s" % self.product
+        return self.product

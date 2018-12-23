@@ -10,17 +10,24 @@ from django.views.decorators.csrf import csrf_protect
 @csrf_protect
 def all_products(request):
     if request.is_ajax() and request.method == 'POST':
-        product = Product.objects.filter(
-            id=request.POST['vote_id'])
 
-        ProductVote.objects.create(product=product[0])
+        current_user = request.user
+
+        if ProductVote.objects.filter(
+            user_id=current_user.id).filter(
+                product=request.POST['vote_id']):
+
+            return HttpResponse(0)
+
+        product = Product.objects.filter(id=request.POST['vote_id'])
+
+        ProductVote.objects.create(product=product[0], user_id=current_user.id)
 
         return HttpResponse(request.POST['vote_id'])
 
     else:
         products = Product.objects.all()
         return render(request, "products.html", {"products": products})
-
 
 @login_required
 def new_product(request):

@@ -167,7 +167,7 @@ The deployed version (master_heroku) on heroku has the following differences fro
 ## Manual Testing
 
 * View the /products url and add a Feature or Issue to the cart, the number of products shown in the cart at the right of the cart graphic should increase by the quanity added to the cart
-* View the /products url and click on the '+1 Vote' button for any Feature/Issue, the total vote number should increment by 1 and turn red
+* View the /products url and click on the '+1 Vote' button for any Feature/Issue, the total vote number should increment by 1 and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the nuumber of votes will not increment by 1 or turn red
 
 ### Password Reset
 Click on the link 'Forgot My Password' and enter your email address, either look on the terminal running the webserver or the email address supplied and open the link in the browser, enter the new password into the input boxes provided and click 'Reset Password'.  Return to the login page and login using the new password.

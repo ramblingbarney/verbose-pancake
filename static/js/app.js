@@ -5,6 +5,7 @@ $(document).foundation();
 
 $(document).ready(function(){
     $('.messages').delay(3000).fadeOut();
+    $('[title]').qtip();
 });
 
 // product image toggle full size to reduced
@@ -14,7 +15,6 @@ function toggleFullSize(element){
 
 // ajax product vote button add one vote
 function plusOneVote(element){
-
     var voteId = $(element).attr("data-id");
     var csrftoken = getCookie('csrftoken');
 
@@ -25,11 +25,13 @@ function plusOneVote(element){
 
         // handle a successful response
         success : function(data) {
+
           var originalVoteNumber = Number($("span[data-id=" + data +"]").text());
           // change the vote number red
           $("span[data-id=" + data +"]").css('color', 'red');
           // increment text by 1 to match database record value
           $("span[data-id=" + data +"]").text(originalVoteNumber + 1);
+
         },
 
         // handle a non-successful response
@@ -37,6 +39,7 @@ function plusOneVote(element){
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
+
 }
 
 // using jQuery
