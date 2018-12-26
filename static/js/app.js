@@ -2,10 +2,8 @@
 $(document).foundation();
 
 // message fade out
-
 $(document).ready(function(){
     $('.messages').delay(3000).fadeOut();
-    $('[title]').qtip();
 });
 
 // product image toggle full size to reduced

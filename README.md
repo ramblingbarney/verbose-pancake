@@ -163,6 +163,13 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * Acceptance criteria:
   * name - Name must be unique
 
+### Add to Cart Feature/Issue Page
+
+* As a logged in user I want to be able to add 2 different products to the cart and the number of products in the cart shown on the navigation page will be 2
+
+* Acceptance criteria:
+  * Cart Number = 2
+
 
 ## Manual Testing
 

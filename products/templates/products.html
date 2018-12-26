@@ -63,11 +63,11 @@
                       <form method="post" action="{% url 'add_to_cart' product.id %}">
                         <div class="input-group">
                           <span class="input-group-label quantity-label cart-column-text">Quantity:</span>
-                          <input name='quantity' type="number" min="1" max="999" class="form-control input-group-field small quantity-input cart-column-text" placeholder="" required>
+                          <input name='quantity' id="quantity_{{product.id}}" type="number" min="1" max="999" class="form-control input-group-field small quantity-input cart-column-text" placeholder="" required>
                         </div>
                         {% if user.is_authenticated %}
-                          <input type="button" title="Only 1 vote allowed per user" onclick="plusOneVote(this)" class="button small button-cart-form cart-column-text" data-id="{{product.id}}" value="+1 Vote">
-                          <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart">
+                          <input type="button" onclick="plusOneVote(this)" title="Just 1 vote" class="button small button-cart-form cart-column-text" data-id="{{product.id}}" value="+1 Vote">
+                          <input type="submit" id="add_to_cart_{{product.id}}" class="button small button-cart-form cart-column-text" value="Add to Cart">
                           <a href="{% url 'edit_product' product.id %}"><button type="button" class="button small button-cart-form cart-column-text">Edit</button></a>
                         {% else %}
                           <input type="button" title="Only 1 vote allowed per user" onclick="plusOneVote(this)" class="button small button-cart-form cart-column-text" data-id="{{product.id}}" value="+1 Vote" disabled=true>
