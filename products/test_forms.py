@@ -164,7 +164,14 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
     def test_edit_feature_name(self):
 
-        self.driver.get("http://localhost:8000/products/edit/5")
+        self.driver.get("http://localhost:8000/products")
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        button = self.driver.find_element_by_id('edit_5')
+
+        self.driver.execute_script("$('#edit_5').click();", button)
+
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id('id_name').send_keys('2')
@@ -193,7 +200,14 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
     def test_edit_no_change_error_name(self):
 
-        self.driver.get("http://localhost:8000/products/edit/5")
+        self.driver.get("http://localhost:8000/products")
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        button = self.driver.find_element_by_id('edit_5')
+
+        self.driver.execute_script("$('#edit_5').click();", button)
+
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id('id_name').clear()

@@ -68,7 +68,7 @@
                         {% if user.is_authenticated %}
                           <input type="button" onclick="plusOneVote(this)" title="Just 1 vote" class="button small button-cart-form cart-column-text" data-id="{{product.id}}" value="+1 Vote">
                           <input type="submit" id="add_to_cart_{{product.id}}" class="button small button-cart-form cart-column-text" value="Add to Cart">
-                          <a href="{% url 'edit_product' product.id %}"><button type="button" class="button small button-cart-form cart-column-text">Edit</button></a>
+                          <a href="{% url 'edit_product' product.id %}"><button type="button" id="edit_{{product.id}}" class="button small button-cart-form cart-column-text">Edit</button></a>
                         {% else %}
                           <input type="button" title="Only 1 vote allowed per user" onclick="plusOneVote(this)" class="button small button-cart-form cart-column-text" data-id="{{product.id}}" value="+1 Vote" disabled=true>
                           <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart" disabled=true>
