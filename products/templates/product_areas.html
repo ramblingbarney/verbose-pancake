@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block page_title %}Product Areas Page{% endblock %}
+{% block content %}
+
+<table border="1">
+  {% for product_area in product_areas %}
+    <tr>
+      <td class="description-heading">{{ product_area.name }}</td>
+      <td><a href="{% url 'edit_product_area' product_area.id %}"><button type="button" id="edit_{{product_area.id}}" class="button small button-cart-form cart-column-text">Edit</button></a>
+      <td><a href="{% url 'delete_product_area' product_area.id %}"><button type="button" id="delete_{{product_area.id}}" class="button small button-cart-form cart-column-text">Delete</button></a>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

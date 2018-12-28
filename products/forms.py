@@ -32,13 +32,13 @@ class NewProductForm(forms.ModelForm):
         pk = self.instance.id
 
         if pk is None:
-            if Product.objects.filter(name=name):
+            if Product.objects.filter(name__iexact=name):
                 raise forms.ValidationError(u'Name must be unique')
         elif pk:
-            if Product.objects.filter(name=name).filter(id=pk):
+            if Product.objects.filter(name__iexact=name).filter(id=pk):
                 return name
             else:
-                if Product.objects.filter(name=name):
+                if Product.objects.filter(name__iexact=name):
                     raise forms.ValidationError(u'Name must be unique')
         return name
 
@@ -77,7 +77,7 @@ class NewProductForm(forms.ModelForm):
         return file
 
 
-class ProductAreaForm(forms.ModelForm):
+class NewProductAreaForm(forms.ModelForm):
     """
     Form used to create a new product area
     """
@@ -88,7 +88,7 @@ class ProductAreaForm(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
-        if ProductArea.objects.filter(name=name):
+        if ProductArea.objects.filter(name__iexact=name):
             raise forms.ValidationError(u'Name must be unique')
         return name
 

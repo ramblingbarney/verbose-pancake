@@ -170,11 +170,51 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * Acceptance criteria:
   * Cart Number = 2
 
+### Add New Feature/Issue Area Page
+
+* As a logged in user I want to be able to add unique Feature/Issue Area options
+
+* Acceptance criteria:
+  * Add unique Feature/Issue Area name
+  * This additional name is shown in the list of all Feature/Issue Areas
+
+### Add New Feature/Issue Area Page with Error
+
+* As a logged in user I want to be able to add non unique Feature/Issue Area options and be shown an error
+
+* Acceptance criteria:
+  * Add non unique Feature/Issue Area name
+  * Error message shown 'Name must be unique'
+
+### Edit Feature/Issue Area Page
+
+* As a logged in user I want to be able to edit and save an existing Feature/Issue Area name
+
+* Acceptance criteria:
+  * Edit Feature/Issue Area name
+  * This edited version is shown in the complete list of all Features/Issues
+
+### Delete Feature/Issue Area Name not used in a Feature/Issue
+
+* As a logged in user I want to be able to delete a Feature/Issue Area Name not used in a Feature/Issue
+
+* Acceptance criteria:
+  * Delete Feature/Issue Area name
+  * This Feature/Issue Area name is not shwon in the complete list of all Features/Issues
+
+
+### Delete Feature/Issue Area Name used in a Feature/Issue
+
+* As a logged in user I want to be not able to delete a Feature/Issue Area Name used in a Feature/Issue
+
+* Acceptance criteria:
+  * Delete Feature/Issue Area name
+  * Error message shown '{Feature/Issue Area Name} Cannot be deleted, Please delete Feature/Issue instead'
 
 ## Manual Testing
 
-* View the /products url and add a Feature or Issue to the cart, the number of products shown in the cart at the right of the cart graphic should increase by the quanity added to the cart
-* View the /products url and click on the '+1 Vote' button for any Feature/Issue, the total vote number should increment by 1 and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the nuumber of votes will not increment by 1 or turn red
+* View the /products url and add a Feature or Issue to the cart, the number of products shown in the cart at the right of the cart graphic should increase by the quantity added to the cart
+* View the /products url and click on the '+1 Vote' button for any Feature/Issue, the total vote number should increment by 1 and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the number of votes will not increment by 1 or turn red
 
 ### Password Reset
 Click on the link 'Forgot My Password' and enter your email address, either look on the terminal running the webserver or the email address supplied and open the link in the browser, enter the new password into the input boxes provided and click 'Reset Password'.  Return to the login page and login using the new password.

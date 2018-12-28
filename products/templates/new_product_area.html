@@ -8,7 +8,7 @@
 
   {{ product_area_form.non_field_errors }}
 
-  {% for hidden_field in product_area_form.hidden_fields %}
+  {% for hidden_field in new_product_area_form.hidden_fields %}
     {{ hidden_field.errors }}
     {{ hidden_field }}
   {% endfor %}
@@ -16,7 +16,7 @@
   {{ form.errors }}
 
   <table border="1">
-    {% for field in product_area_form.visible_fields %}
+    {% for field in new_product_area_form.visible_fields %}
       <tr>
         <th>{{ field.label_tag }}</th>
         <td>

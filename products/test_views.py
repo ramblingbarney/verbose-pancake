@@ -16,6 +16,9 @@ class DesktopProductViewsTest(unittest.TestCase):
         management.call_command(
             'loaddata',
             'products/fixtures/products-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/product-areas-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -37,10 +40,10 @@ class DesktopProductViewsTest(unittest.TestCase):
         elements_list = []
 
         test = [
-        'Description UI Issue',
-        'Description Networking Feature',
-        'Description Networking Feature',
-        'Description UI Issue']
+            'Description UI Issue',
+            'Description Networking Feature',
+            'Description Networking Feature',
+            'Description UI Issue']
 
         for e in elements:
             elements_list.append(e.text)
@@ -52,7 +55,6 @@ class DesktopProductViewsTest(unittest.TestCase):
 
         self.assertEqual(len(elements), 4)
 
-# TODO: add to cart update quantity not working
 # TODO: test profile view
 
 

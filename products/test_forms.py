@@ -16,6 +16,9 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         management.call_command(
             'loaddata',
             'products/fixtures/products-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/product-areas-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -224,6 +227,153 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         warnings_list = '<li>Name must be unique</li>'
 
         self.assertEqual(elements.get_attribute('innerHTML'), warnings_list)
+
+
+class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        management.call_command('flush', verbosity=0, interactive=False)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/products-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/product-areas-data.json', verbosity=0)
+        super().setUpClass()
+        options = Options()
+        options.add_argument("--headless")
+        cls.driver = webdriver.Chrome(options=options)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
+    def test_add_new_feature_issue_area(self):
+
+        self.driver.get("http://localhost:8000")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-sign-in-alt')]").click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id(
+            'id_username').send_keys('conor@conor.com')
+        self.driver.find_element_by_id(
+            'id_password').send_keys('example1aslkfjlksjflaf')
+        self.driver.find_element_by_id(
+            'id_login_button').click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products/area/new")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('id_name').send_keys('Disk Space')
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        elements = self.driver.find_elements_by_xpath(
+            "//td[@class='description-heading']")
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.assertEqual(len(elements), 4)
+
+    def test_add_new_feature_issue_area_error(self):
+
+        self.driver.get("http://localhost:8000/products/area/new")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('id_name').send_keys('Disk Space')
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        warnings_list = '<li>name<ul class="errorlist"><li>Name must be unique</li></ul></li>'
+
+        element = self.driver.find_element_by_xpath(
+            "//ul[contains(@class, 'errorlist')]")
+
+        self.assertEqual(element.get_attribute('innerHTML'), warnings_list)
+
+    def test_edit_feature_issue_area(self):
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('edit_1').click()
+        self.driver.find_element_by_id('id_name').send_keys('X')
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        elements = self.driver.find_elements_by_xpath(
+            "//td[@class='description-heading']")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.assertEqual(elements[0].text, 'NetworkingX')
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('edit_1').click()
+        self.driver.find_element_by_id('id_name').clear()
+        self.driver.find_element_by_id('id_name').send_keys('Networking')
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Save')]").click()
+
+    def test_delete_feature_issue_area_not_used_in_product(self):
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('delete_3').click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        elements = self.driver.find_elements_by_xpath(
+            "//td[@class='description-heading']")
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.assertEqual(len(elements), 3)
+
+    def test_delete_feature_issue_area_used_in_product(self):
+
+        self.driver.get("http://localhost:8000/products/areas")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id('delete_1').click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        warnings_text = 'Networking Cannot be deleted, Please delete Feature/Issue instead'
+
+        element = self.driver.find_element_by_xpath(
+            "//div[contains(@class, 'warning')]")
+
+        self.assertEqual(element.get_attribute('innerHTML'), warnings_text)
 
 
 if __name__ == '__main__':
