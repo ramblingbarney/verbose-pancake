@@ -31,6 +31,7 @@ class Product(models.Model):
         ('F', 'Feature'),
     )
 
+    user_id = models.IntegerField()
     name = models.CharField(max_length=254, blank=False)
     description = models.TextField(blank=False)
     # this is the amount to be paid for the feature/issue

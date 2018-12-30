@@ -91,5 +91,3 @@ class NewProductAreaForm(forms.ModelForm):
         if ProductArea.objects.filter(name__iexact=name):
             raise forms.ValidationError(u'Name must be unique')
         return name
-
-    # TODO: TEsts, product area, create, duplicaes

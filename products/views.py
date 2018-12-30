@@ -31,12 +31,16 @@ def all_products(request):
 
 @login_required
 def new_product(request):
+    current_user = request.user
     new_product_form = NewProductForm()
     if request.method == 'POST':
         form = NewProductForm(request.POST, request.FILES)
         if form.is_valid():
+            product = form.save(commit=False)
+            product.user_id = current_user.id
+            product.save()
             # file is saved
-            form.save()
+            # form.save()
             messages.add_message(
                 request, messages.SUCCESS, 'Feature/Issue created')
             return redirect('products')
