@@ -15,10 +15,10 @@ class DesktopProductViewsTest(unittest.TestCase):
         management.call_command('flush', verbosity=0, interactive=False)
         management.call_command(
             'loaddata',
-            'products/fixtures/products-data.json', verbosity=0)
+            'accounts/fixtures/users-data.json', verbosity=0)
         management.call_command(
             'loaddata',
-            'products/fixtures/product-areas-data.json', verbosity=0)
+            'products/fixtures/products-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -26,6 +26,13 @@ class DesktopProductViewsTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        management.call_command('flush', verbosity=0, interactive=False)
+        management.call_command(
+            'loaddata',
+            'accounts/fixtures/users-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/products-data.json', verbosity=0)
         cls.driver.quit()
         super().tearDownClass()
 
@@ -40,20 +47,19 @@ class DesktopProductViewsTest(unittest.TestCase):
         elements_list = []
 
         test = [
-            'Description UI Issue',
             'Description Networking Feature',
             'Description Networking Feature',
             'Description UI Issue']
 
-        for e in elements:
-            elements_list.append(e.text)
+        for element in elements:
+            elements_list.append(element.text)
 
         self.assertListEqual(elements_list, test)
 
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 4)
+        self.assertEqual(len(elements), 3)
 
 # TODO: test profile view
 

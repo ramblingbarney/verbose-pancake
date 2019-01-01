@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import Product, ProductVote, ProductArea
+from .models import ProductArea
 from django.http import HttpResponse
 from django.contrib import messages
 from .forms import NewProductForm, NewProductAreaForm
@@ -76,7 +77,22 @@ def edit_product(request, id=None, template_name='edit_product.html'):
     args = {'new_product_form': new_product_form, 'id': id}
     return render(request, template_name, args)
 
-# TODO: delete product only by owner
+
+@login_required
+def delete_product(request, id=None, template_name='products.html'):
+    current_user = request.user
+    if id:
+        product = get_object_or_404(Product, id=id)
+
+        if Product.objects.filter(
+                id=id).filter(user_id=current_user.id):
+            product.delete()
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                "{} can only be deleted by the creator".format(product))
+
+    return redirect('products')
 
 
 @login_required
@@ -126,9 +142,9 @@ def delete_product_area(request, id=None, template_name='edit_product_area.html'
         product_area = get_object_or_404(ProductArea, id=id)
 
         if Product.objects.filter(product_area_id=id):
-            print(product_area)
             messages.add_message(
-                request, messages.ERROR, "{} Cannot be deleted, Please delete Feature/Issue instead".format(product_area))
+                request, messages.ERROR,
+                "{} Cannot be deleted, Please delete Feature/Issue instead".format(product_area))
         else:
             product_area.delete()
 

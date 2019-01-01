@@ -1,5 +1,6 @@
 import unittest
 import os
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -15,10 +16,10 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         management.call_command('flush', verbosity=0, interactive=False)
         management.call_command(
             'loaddata',
-            'products/fixtures/products-data.json', verbosity=0)
+            'accounts/fixtures/users-data.json', verbosity=0)
         management.call_command(
             'loaddata',
-            'products/fixtures/product-areas-data.json', verbosity=0)
+            'products/fixtures/products-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -26,6 +27,13 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        management.call_command('flush', verbosity=0, interactive=False)
+        management.call_command(
+            'loaddata',
+            'accounts/fixtures/users-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/products-data.json', verbosity=0)
         cls.driver.quit()
         super().tearDownClass()
 
@@ -81,12 +89,12 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//div/strong[@class='file-name']")
 
-        self.assertEqual(len(elements), 3)
+        self.assertEqual(len(elements), 2)
 
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 3)
+        self.assertEqual(len(elements), 2)
 
     def test_add_new_issue(self):
 
@@ -125,7 +133,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 4)
+        self.assertEqual(len(elements), 3)
 
     def test_add_new_form_validation_error(self):
 
@@ -171,9 +179,9 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        button = self.driver.find_element_by_id('edit_5')
+        button = self.driver.find_element_by_id('edit_3')
 
-        self.driver.execute_script("$('#edit_5').click();", button)
+        self.driver.execute_script("$('#edit_3').click();", button)
 
         self.driver.implicitly_wait(0)  # seconds
 
@@ -184,22 +192,26 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         self.driver.implicitly_wait(0)  # seconds
 
         element = self.driver.find_element_by_xpath(
-            "//a[contains(@class, 'accordion-title issue')]")
+            "//a[contains(@class, 'accordion-title')]")
 
-        self.assertEqual(element.text, 'Name: Product 12 Price: 10.00 Total Cumulative Donations: 10.00 Status: Doing')
+        self.assertEqual(element.text, 'Name: Product 22 Price: 20.00 Total Cumulative Donations: 0.00 Status: Complete')
 
         element = self.driver.find_element_by_xpath(
             '//div[@class="image-detail"]//img[@src]')
 
         image_src = element.get_attribute('src')
 
-        self.assertEqual(image_src, 'http://localhost:8000/media/images/Conor_B_m8JZBno.jpg')
+        image_shortened = re.sub(r'_[a-zA-Z0-9]+\.jpg', '.jpg', image_src)
+
+        self.assertEqual(image_shortened, 'http://localhost:8000/media/images/Conor_B.jpg')
 
         element = self.driver.find_element_by_xpath(
             "//span[@class='file-name']")
 
+        element_shortened = re.sub(r'_[a-zA-Z0-9]+\.pdf', '.pdf', element.text)
+
         self.assertEqual(
-            element.text, 'Python_Tricks_Sample.pdf')
+            element_shortened, 'A-Gentle-Introduction-to-Apache-Spark.pdf')
 
     def test_edit_no_change_error_name(self):
 
@@ -207,15 +219,15 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        button = self.driver.find_element_by_id('edit_5')
+        button = self.driver.find_element_by_id('edit_3')
 
-        self.driver.execute_script("$('#edit_5').click();", button)
+        self.driver.execute_script("$('#edit_3').click();", button)
 
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id('id_name').clear()
         self.driver.implicitly_wait(0)  # seconds
-        self.driver.find_element_by_id('id_name').send_keys('Product 2')
+        self.driver.find_element_by_id('id_name').send_keys('Product 3')
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_xpath(
@@ -236,10 +248,10 @@ class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
         management.call_command('flush', verbosity=0, interactive=False)
         management.call_command(
             'loaddata',
-            'products/fixtures/products-data.json', verbosity=0)
+            'accounts/fixtures/users-data.json', verbosity=0)
         management.call_command(
             'loaddata',
-            'products/fixtures/product-areas-data.json', verbosity=0)
+            'products/fixtures/products-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
@@ -247,6 +259,13 @@ class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        management.call_command('flush', verbosity=0, interactive=False)
+        management.call_command(
+            'loaddata',
+            'accounts/fixtures/users-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/products-data.json', verbosity=0)
         cls.driver.quit()
         super().tearDownClass()
 
@@ -287,7 +306,7 @@ class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        self.assertEqual(len(elements), 4)
+        self.assertEqual(len(elements), 3)
 
     def test_add_new_feature_issue_area_error(self):
 
@@ -313,7 +332,7 @@ class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
         self.driver.get("http://localhost:8000/products/areas")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('edit_1').click()
+        self.driver.find_element_by_id('edit_3').click()
         self.driver.find_element_by_id('id_name').send_keys('X')
         self.driver.implicitly_wait(0)  # seconds
 
@@ -328,13 +347,13 @@ class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
             "//td[@class='description-heading']")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.assertEqual(elements[0].text, 'NetworkingX')
+        self.assertEqual(elements[1].text, 'NetworkingX')
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.get("http://localhost:8000/products/areas")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('edit_1').click()
+        self.driver.find_element_by_id('edit_3').click()
         self.driver.find_element_by_id('id_name').clear()
         self.driver.find_element_by_id('id_name').send_keys('Networking')
         self.driver.implicitly_wait(0)  # seconds
@@ -365,15 +384,124 @@ class DesktopProductAreaFeaturesIssuesTest(unittest.TestCase):
         self.driver.get("http://localhost:8000/products/areas")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('delete_1').click()
+        self.driver.find_element_by_id('delete_2').click()
         self.driver.implicitly_wait(0)  # seconds
 
-        warnings_text = 'Networking Cannot be deleted, Please delete Feature/Issue instead'
+        warnings_text = 'UI Cannot be deleted, Please delete Feature/Issue instead'
 
         element = self.driver.find_element_by_xpath(
             "//div[contains(@class, 'warning')]")
 
         self.assertEqual(element.get_attribute('innerHTML'), warnings_text)
+
+
+class DesktopProductFeaturesIssuesDeleteTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        management.call_command('flush', verbosity=0, interactive=False)
+        management.call_command(
+            'loaddata',
+            'accounts/fixtures/users-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/products-data.json', verbosity=0)
+        super().setUpClass()
+        options = Options()
+        options.add_argument("--headless")
+        cls.driver = webdriver.Chrome(options=options)
+
+    @classmethod
+    def tearDownClass(cls):
+        management.call_command('flush', verbosity=0, interactive=False)
+        management.call_command(
+            'loaddata',
+            'accounts/fixtures/users-data.json', verbosity=0)
+        management.call_command(
+            'loaddata',
+            'products/fixtures/products-data.json', verbosity=0)
+        cls.driver.quit()
+        super().tearDownClass()
+
+    def test_delete_feature_issue_not_by_creator(self):
+
+        self.driver.get("http://localhost:8000")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-sign-out-alt')]").click()
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-sign-in-alt')]").click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id(
+            'id_username').send_keys('conor@conor.com')
+        self.driver.find_element_by_id(
+            'id_password').send_keys('example1aslkfjlksjflaf')
+        self.driver.find_element_by_id(
+            'id_login_button').click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products")
+        self.driver.implicitly_wait(0)  # seconds
+
+        delete_button = self.driver.find_element_by_id('delete_3')
+        self.driver.execute_script("$('#delete_3').click();", delete_button)
+        self.driver.implicitly_wait(0)  # seconds
+
+        warnings_text = 'Product 2 can only be deleted by the creator'
+
+        element = self.driver.find_element_by_xpath(
+            "//div[contains(@class, 'warning')]")
+
+        self.assertEqual(element.get_attribute('innerHTML'), warnings_text)
+
+    def test_delete_feature_issue_by_creator(self):
+
+        self.driver.get("http://localhost:8000")
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-sign-in-alt')]").click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.find_element_by_id(
+            'id_username').send_keys('c9dw5er@protonmail.com')
+        self.driver.find_element_by_id(
+            'id_password').send_keys('example1')
+        self.driver.find_element_by_id(
+            'id_login_button').click()
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        self.driver.get("http://localhost:8000/products")
+        self.driver.implicitly_wait(0)  # seconds
+
+        delete_button = self.driver.find_element_by_id('delete_2')
+        self.driver.execute_script("$('#delete_2').click();", delete_button)
+        self.driver.implicitly_wait(0)  # seconds
+
+        elements = self.driver.find_elements_by_xpath(
+            "//div/h3[contains(@class, 'description-heading')]")
+
+        elements_list = []
+
+        test = ['Description Networking Feature']
+
+        for element in elements:
+            elements_list.append(element.text)
+
+        self.assertListEqual(elements_list, test)
+
+        elements = self.driver.find_elements_by_xpath(
+            "//li[contains(@class, 'accordion-item is-active')]")
+
+        self.assertEqual(len(elements), 1)
 
 
 if __name__ == '__main__':

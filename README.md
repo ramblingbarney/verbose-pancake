@@ -200,8 +200,7 @@ The deployed version (master_heroku) on heroku has the following differences fro
 
 * Acceptance criteria:
   * Delete Feature/Issue Area name
-  * This Feature/Issue Area name is not shwon in the complete list of all Features/Issues
-
+  * This Feature/Issue Area name is not shown in the complete list of all Features/Issues
 
 ### Delete Feature/Issue Area Name used in a Feature/Issue
 
@@ -210,6 +209,22 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * Acceptance criteria:
   * Delete Feature/Issue Area name
   * Error message shown '{Feature/Issue Area Name} Cannot be deleted, Please delete Feature/Issue instead'
+
+### Delete Feature/Issue by the Creator/Owner
+
+* As a logged in user and creator/owner of the Feature/Issue I want to be able to delete it
+
+* Acceptance criteria:
+  * Delete Feature/Issue name
+  * This Feature/Issue Area name is not shown in the complete list of all Features/Issues
+
+### Delete Feature/Issue not by the Creator/Owner
+
+* As a logged in user and not the creator/owner of the Feature/Issue I want to be stopped from deleting it
+
+* Acceptance criteria:
+  * Delete Feature/Issue name
+  * Error message shown '{Feature/Issue Name}  can only be deleted by the creator'
 
 ## Manual Testing
 

@@ -1,1 +1,1 @@
-[{"model": "products.productarea", "pk": 1, "fields": {"name": "UI"}}, {"model": "products.productarea", "pk": 2, "fields": {"name": "Networking"}}]
+[{"model": "products.productarea", "pk": 2, "fields": {"name": "UI"}}, {"model": "products.productarea", "pk": 3, "fields": {"name": "Networking"}}, {"model": "products.productarea", "pk": 4, "fields": {"name": "Data Scrience"}}]

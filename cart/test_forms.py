@@ -49,13 +49,13 @@ class DesktopCartFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        element = self.driver.find_element_by_id('quantity_5')
+        element = self.driver.find_element_by_id('quantity_2')
 
-        self.driver.execute_script("$('#quantity_5').val('1');", element)
+        self.driver.execute_script("$('#quantity_2').val('1');", element)
 
-        button = self.driver.find_element_by_id('add_to_cart_5')
+        button = self.driver.find_element_by_id('add_to_cart_2')
 
-        self.driver.execute_script("$('#add_to_cart_5').click();", button)
+        self.driver.execute_script("$('#add_to_cart_2').click();", button)
         self.driver.implicitly_wait(0)  # seconds
 
         element = self.driver.find_element_by_xpath(
@@ -65,13 +65,13 @@ class DesktopCartFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        element = self.driver.find_element_by_id('quantity_6')
+        element = self.driver.find_element_by_id('quantity_3')
 
-        self.driver.execute_script("$('#quantity_6').val('1');", element)
+        self.driver.execute_script("$('#quantity_3').val('1');", element)
 
-        button = self.driver.find_element_by_id('add_to_cart_6')
+        button = self.driver.find_element_by_id('add_to_cart_3')
 
-        self.driver.execute_script("$('#add_to_cart_6').click();", button)
+        self.driver.execute_script("$('#add_to_cart_3').click();", button)
         self.driver.implicitly_wait(0)  # seconds
 
         element = self.driver.find_element_by_xpath(

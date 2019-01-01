@@ -14,9 +14,6 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         management.call_command(
             'loaddata',
             'accounts/fixtures/users-data.json', verbosity=0)
-        management.call_command(
-            loaddata.Command(),
-            'accounts/fixtures/users-data.json', verbosity=0)
         super().setUpClass()
         options = Options()
         options.add_argument("--headless")
