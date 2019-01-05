@@ -23,7 +23,11 @@
           {% else %}
             <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a>
           {% endif %}
-          <a href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart">{{ product_count }}</i></a>
+          {% if product_count >= 1 %}
+            <a href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart">{{ product_count }}</i></a>
+          {% else %}
+            <i class="fas fa-shopping-cart">{{ product_count }}</i>
+          {% endif %}
         </div>
       </div>
     </div>

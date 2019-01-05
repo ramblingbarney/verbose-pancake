@@ -20,6 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
+STRIPE_API_KEY = os.environ['STRIPE_API_KEY']
+STRIPE_PUBLISHABLE_KEY = os.environ['STRIPE_PUBLISHABLE_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'accounts',
     'products',
     'cart',
+    'checkout',
+    'stripe',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +125,7 @@ USE_L10N = True
 
 TIME_ZONE = 'Europe/London'
 USE_TZ = True
+
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 

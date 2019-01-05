@@ -40,7 +40,7 @@ function plusOneVote(element){
 
 }
 
-// using jQuery
+// get the user logged in cookie for the ajax product vote add one vote
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -75,3 +75,10 @@ function showMobileMenu() {
 function hideMobileMenu() {
     document.getElementById("mySidenav").style.width = "0";
 }
+
+// remove spaces in the credit card number on checkout charge page
+$(document).ready(function(){
+    $('#creditcard-number').on('change', function(){
+       $(this).val($(this).val().replace(/\s+/g, ''));
+     });
+});

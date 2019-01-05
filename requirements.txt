@@ -43,6 +43,7 @@ rjsmin==1.0.12
 selenium==3.14.1
 six==1.11.0
 snowballstemmer==1.2.1
+stripe==2.17.0
 text-unidecode==1.2
 traitlets==4.3.2
 urllib3==1.24

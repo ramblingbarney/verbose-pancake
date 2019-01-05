@@ -163,12 +163,32 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * Acceptance criteria:
   * name - Name must be unique
 
-### Add to Cart Feature/Issue Page
+### Add to Cart Feature Page
 
-* As a logged in user I want to be able to add 2 different products to the cart and the number of products in the cart shown on the navigation page will be 2
+* As a logged in user I want to be able to add 2 different Features to the cart and the number of Features in the cart shown on the navigation page will be 2
 
 * Acceptance criteria:
   * Cart Number = 2
+
+### Cart Checkout Payment Feature Page
+
+* As a logged in user I want to be able to add 1 or more Features to the cart, click onto the Checkout page and make a payment
+
+* Acceptance criteria:
+  * Cart contains at least 1 Feature
+  * Checkout Charge shows the total of the Features selected in the Cart
+  * After entering valid credit card details, clicking 'Pay'
+  * Message 'Success! We've charged your card!' is shown
+
+### Cart Checkout Payment Failed Feature Page
+
+* As a logged in user I want to be able to add 1 or more Features to the cart, click onto the Checkout page and fail to make a payment when an incorrect credit card number is used
+
+* Acceptance criteria:
+  * Cart contains at least 1 Feature
+  * Checkout Charge shows the total of the Features selected in the Cart
+  * After entering valid credit card details, clicking 'Pay'
+  * Message 'Your card number is incorrect.' is shown
 
 ### Add New Feature/Issue Area Page
 
@@ -210,13 +230,22 @@ The deployed version (master_heroku) on heroku has the following differences fro
   * Delete Feature/Issue Area name
   * Error message shown '{Feature/Issue Area Name} Cannot be deleted, Please delete Feature/Issue instead'
 
-### Delete Feature/Issue by the Creator/Owner
+### Delete Feature/Issue by the Creator/Owner With No Payments Assigned
 
 * As a logged in user and creator/owner of the Feature/Issue I want to be able to delete it
 
 * Acceptance criteria:
+  * No record of a Stripe payment exists in the 'checkout_saleproduct' table with the id of the Feature/Issue being deleted
   * Delete Feature/Issue name
   * This Feature/Issue Area name is not shown in the complete list of all Features/Issues
+
+### Delete Feature/Issue With At Least One Payment Assigned
+
+* As a logged in user with a Feature/Issue with one payment assigned, I want to be stopped from deleting it
+
+* Acceptance criteria:
+  * Delete Feature/Issue name
+  * Error message shown '{Feature/Issue Name} can not be deleted as users have paid funds'
 
 ### Delete Feature/Issue not by the Creator/Owner
 
@@ -228,7 +257,7 @@ The deployed version (master_heroku) on heroku has the following differences fro
 
 ## Manual Testing
 
-* View the /products url and add a Feature or Issue to the cart, the number of products shown in the cart at the right of the cart graphic should increase by the quantity added to the cart
+* View the /products url and add a Feature or Issue to the cart, the number of Features/Issues shown in the cart at the right of the cart graphic should increase by the quantity added to the cart
 * View the /products url and click on the '+1 Vote' button for any Feature/Issue, the total vote number should increment by 1 and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the number of votes will not increment by 1 or turn red
 
 ### Password Reset

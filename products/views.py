@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import Product, ProductVote, ProductArea
 from .models import ProductArea
+from checkout.models import SaleProduct
 from django.http import HttpResponse
 from django.contrib import messages
 from .forms import NewProductForm, NewProductAreaForm
@@ -18,6 +19,7 @@ def all_products(request):
             user_id=current_user.id).filter(
                 product=request.POST['vote_id']):
 
+            # TODO: raise failure message for either one vote or no sale
             return HttpResponse(0)
 
         product = Product.objects.filter(id=request.POST['vote_id'])
@@ -40,8 +42,6 @@ def new_product(request):
             product = form.save(commit=False)
             product.user_id = current_user.id
             product.save()
-            # file is saved
-            # form.save()
             messages.add_message(
                 request, messages.SUCCESS, 'Feature/Issue created')
             return redirect('products')
@@ -84,13 +84,19 @@ def delete_product(request, id=None, template_name='products.html'):
     if id:
         product = get_object_or_404(Product, id=id)
 
-        if Product.objects.filter(
-                id=id).filter(user_id=current_user.id):
-            product.delete()
-        else:
+        if SaleProduct.objects.filter(
+                product_id=id):
             messages.add_message(
                 request, messages.ERROR,
-                "{} can only be deleted by the creator".format(product))
+                "{} can not be deleted as users have paid funds".format(product))
+        else:
+            if Product.objects.filter(
+                    id=id).filter(user_id=current_user.id):
+                product.delete()
+            else:
+                messages.add_message(
+                    request, messages.ERROR,
+                    "{} can only be deleted by the creator".format(product))
 
     return redirect('products')
 

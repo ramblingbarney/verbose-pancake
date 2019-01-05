@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import NoSuchElementException
 from django.core import management
 from django.core.management.commands import loaddata
 
@@ -26,7 +27,27 @@ class DesktopCartFeaturesIssuesTest(unittest.TestCase):
         cls.driver.quit()
         super().tearDownClass()
 
-    def test_add_features_issues_cart(self):
+    def test_add_issues_cart_fail(self):
+
+        self.driver.get("http://localhost:8000/products")
+
+        self.driver.implicitly_wait(0)  # seconds
+
+        try:
+
+            element = self.driver.find_element_by_id('quantity_2')
+
+            self.driver.execute_script("$('#quantity_2').val('1');", element)
+
+            button = self.driver.find_element_by_id('add_to_cart_2')
+
+            self.driver.execute_script("$('#add_to_cart_2').click();", button)
+
+        except NoSuchElementException:
+
+            self.assertEqual(1, 1)
+
+    def test_add_features_cart(self):
 
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
@@ -49,13 +70,13 @@ class DesktopCartFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        element = self.driver.find_element_by_id('quantity_2')
+        element = self.driver.find_element_by_id('quantity_3')
 
-        self.driver.execute_script("$('#quantity_2').val('1');", element)
+        self.driver.execute_script("$('#quantity_3').val('1');", element)
 
-        button = self.driver.find_element_by_id('add_to_cart_2')
+        button = self.driver.find_element_by_id('add_to_cart_3')
 
-        self.driver.execute_script("$('#add_to_cart_2').click();", button)
+        self.driver.execute_script("$('#add_to_cart_3').click();", button)
         self.driver.implicitly_wait(0)  # seconds
 
         element = self.driver.find_element_by_xpath(

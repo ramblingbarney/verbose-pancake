@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block page_title %}CreditCard Charge Page{% endblock %}
+{% block content %}
+{{total}}
+<div class="wrapper">
+
+  <form action="" method="post">{% csrf_token %}
+
+    {% for field in form %}
+      <div class="field-wrapper">
+
+        <div class="field-label">
+          {{ field.label_tag }}:
+        </div>
+
+        <div class="field-field">
+          {{ field }}
+          {{ field.errors }}
+        </div>
+
+      </div>
+    {% endfor %}
+
+    <br>
+    <input type="submit" value="Pay" id="pay-with-creditcard" />
+  </form>
+
+</div>
+{% endblock %}

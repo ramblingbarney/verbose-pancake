@@ -6,9 +6,13 @@ def view_cart(request):
     """
     A view that renders the cart contents page
     """
+    cart = request.session.get('cart', {})
 
-    return render(request, "cart.html")
+    if len(cart) > 0:
 
+        return render(request, "cart.html")
+    else:
+        return redirect(reverse('products'))
 
 def add_to_cart(request, id):
     """
@@ -16,15 +20,17 @@ def add_to_cart(request, id):
     """
 
     quantity = int(request.POST.get('quantity'))
-
     cart = request.session.get('cart', {})
-    cart[id] = cart.get(id, quantity)
+
+    if id in cart:
+        cart[id] += quantity
+    else:
+        cart[id] = cart.get(id, quantity)
 
     request.session['cart'] = cart
     messages.add_message(request, messages.SUCCESS, 'Added to cart')
     system_messages = messages.get_messages(request)
     return redirect(reverse('products'))
-
 
 def adjust_cart(request, id):
     """

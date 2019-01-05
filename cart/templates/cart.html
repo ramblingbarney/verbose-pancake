@@ -15,18 +15,17 @@
                 <p class="product-description">{{ item.product.description }}</p>
                 <p>{{ item.product.payment }}</p>
                 <p>
-
-                    <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label class="sr-only" for="exampleInputAmount">New Qty</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">Qty</div>
-                                <input name='quantity' type="number"  min="0" max="999" class="form-control" value="{{item.quantity}}" >
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Amend</button>
-                    </form>
+                  <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
+                      {% csrf_token %}
+                      <div class="form-group">
+                          <label class="sr-only" for="exampleInputAmount">New Qty</label>
+                          <div class="input-group">
+                              <div class="input-group-addon">Qty</div>
+                              <input name='quantity' type="number"  min="0" max="999" class="form-control" value="{{item.quantity}}" >
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Amend</button>
+                  </form>
                 </p>
             </div>
         </div>
@@ -36,7 +35,7 @@
 <div class="row">
     <p>Total</p>
     <p><span class="glyphicon glyphicon-euro" aria-hidden="true"></span> {{ total }}</p>
-    <a href="/" class="btn btn-success" role="button"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Checkout</a>
+    <a href="{% url 'charge' total %}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Checkout</a>
 </div>
 
 {% endblock %}

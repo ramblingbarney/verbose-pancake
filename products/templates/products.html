@@ -67,7 +67,16 @@
                         </div>
                         {% if user.is_authenticated %}
                           <input type="button" onclick="plusOneVote(this)" title="Just 1 vote" class="button small button-cart-form cart-column-text" data-id="{{product.id}}" value="+1 Vote">
-                          <input type="submit" id="add_to_cart_{{product.id}}" class="button small button-cart-form cart-column-text" value="Add to Cart">
+                            {% if product.get_product_type_display == "Feature" %}
+                              <input type="submit" id="add_to_cart_{{product.id}}" class="button small button-cart-form cart-column-text" value="Add to Cart">
+                            {% else %}
+                              <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart" disabled=true>
+                            {% endif %}
+                          {% if product_count >= 1 %}
+                            <a href="{% url 'view_cart' %}"><button type="button" class="button small button-cart-form cart-column-text">View Cart</button></a>
+                          {% else %}
+                            <a href="{% url 'view_cart' %}"><button type="button" class="button small button-cart-form cart-column-text" disabled=true>View Cart</button></a>
+                          {% endif %}
                           <a href="{% url 'edit_product' product.id %}"><button type="button" id="edit_{{product.id}}" class="button small button-cart-form cart-column-text">Edit</button></a>
                           <a href="{% url 'delete_product' product.id %}"><button type="button" id="delete_{{product.id}}" class="button small button-cart-form cart-column-text">Delete</button></a>
                         {% else %}

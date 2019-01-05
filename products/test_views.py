@@ -47,8 +47,12 @@ class DesktopProductViewsTest(unittest.TestCase):
         elements_list = []
 
         test = [
+            'Description UI Issue',
+            'Description UI Feature',
             'Description Networking Feature',
             'Description Networking Feature',
+            'Description UI Issue',
+            'Description UI Issue',
             'Description UI Issue']
 
         for element in elements:
@@ -59,7 +63,7 @@ class DesktopProductViewsTest(unittest.TestCase):
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
-        self.assertEqual(len(elements), 3)
+        self.assertEqual(len(elements), 7)
 
 # TODO: test profile view
 
