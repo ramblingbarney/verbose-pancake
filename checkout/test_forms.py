@@ -62,13 +62,12 @@ class DesktopCartFeaturesIssuesTest(unittest.TestCase):
 
         element = self.driver.find_element_by_xpath(
             "//i[contains(@class, 'fa-shopping-cart')]")
-
         element.click()
-
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_xpath(
-            "//*[contains(text(), 'Checkout')]").click()
+        element = self.driver.find_element_by_xpath(
+            "//*[contains(text(), 'Checkout')]")
+        element.click()
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id(
