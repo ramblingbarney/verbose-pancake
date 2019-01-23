@@ -24,6 +24,16 @@ function plusOneVote(element){
         // handle a successful response
         success : function(data) {
 
+          if (data == 0){
+            // User is only allowed to vote once
+            $('input#vote_' + voteId).css('background-color','red');
+            $('input#vote_' + voteId).val('Already Voted!');
+          }else if(data == 1){
+            // User has to purchase freature first
+            $('input#vote_' + voteId).css('background-color','red');
+            $('input#vote_' + voteId).val('Purchase Required');
+          }
+
           var originalVoteNumber = Number($("span[data-id=" + data +"]").text());
           // change the vote number red
           $("span[data-id=" + data +"]").css('color', 'red');

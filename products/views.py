@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import Product, ProductVote, ProductArea
-from .models import ProductArea
+from checkout.models import Sale, SaleProduct
 from checkout.models import SaleProduct
 from django.http import HttpResponse
 from django.contrib import messages
@@ -12,21 +12,27 @@ from django.views.decorators.csrf import csrf_protect
 @csrf_protect
 def all_products(request):
     if request.is_ajax() and request.method == 'POST':
-
         current_user = request.user
-
+        # first check that user has not voted previously
         if ProductVote.objects.filter(
             user_id=current_user.id).filter(
                 product=request.POST['vote_id']):
-
-            # TODO: raise failure message for either one vote or no sale
             return HttpResponse(0)
 
-        product = Product.objects.filter(id=request.POST['vote_id'])
-
-        ProductVote.objects.create(product=product[0], user_id=current_user.id)
-
-        return HttpResponse(request.POST['vote_id'])
+        try:
+            product = Product.objects.filter(id=request.POST['vote_id'])
+            # if its an issue up vote allowed
+            if Product.objects.filter(
+                id=request.POST['vote_id']).filter(
+                    product_type='I'):
+                ProductVote.objects.create(product=product[0], user_id=current_user.id)
+                return HttpResponse(request.POST['vote_id'])
+            # else its a Feature and purchase required
+            elif Sale.objects.filter(user_id=current_user.id).filter(saleproduct__product=request.POST['vote_id'])[0]:
+                ProductVote.objects.create(product=product[0], user_id=current_user.id)
+                return HttpResponse(request.POST['vote_id'])
+        except IndexError:
+            return HttpResponse(1)
 
     else:
         products = Product.objects.all()
