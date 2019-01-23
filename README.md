@@ -119,7 +119,7 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * Acceptance criteria:
   * A new Feature/Issue contains;
     * Name
-    * Price
+    * Price (For Issues its set to zero on save)
     * Total Cumulative Donations
     * Status
     * Description & Feature/Issue type
@@ -131,34 +131,48 @@ The deployed version (master_heroku) on heroku has the following differences fro
 
 ### Add new Feature or Issue Form Errors
 
-* As a logged in user I want to be able to create a Feature or Issue (url route /products/new) and be prevented from using a 'Name' that exists in the database, upload an image file that is not an image or uploading a document that is too large or not an accepted file type.
+* As a logged in user I want to be able to create a Feature/Issue (url route /products/new) and be prevented from using a 'Name' that exists in the database, upload an image file that is not an image or uploading a document that is too large or not an accepted file type.
 
 * Acceptance criteria:
   * name - Name must be unique
   * image - Upload a valid image. The file you uploaded was either not an image or a corrupted image.
   * product_document - Please keep filesize under 5.0MB. Current filesize N MB
 
-### Add new Feature without Image or Document
+### Add new Feature/Issue without Image or Document
 
-* As a logged in user I want to be able to create a Feature (url route /products/new) without an 'Image' file or 'Product Document' file
+* As a logged in user I want to be able to create a Feature/Issue (url route /products/new) without an 'Image' file or 'Product Document' file
 
 * Acceptance criteria:
   * name - Name must be unique
   * image - A placeholder image will be shown instead of the Upload image
   * Document - No file will be shown
 
-### Edit Feature Name
+### Edit Feature Price
 
-* As a logged in user I want to be able to edit the name of a feature and it be reflected on the name of the same feature on the all features and issues page.
+* As a logged in user I want to be able to edit the price of a Feature and it be reflected on the price of the same feature on the all features and issues page.
 
 * Acceptance criteria:
-  * Name will show the amended feature name
+  * Price will show the amended Feature price
+
+### Edit Issue Price
+
+* As a logged in user I do not want to be able to edit the price of an Issue.
+
+* Acceptance criteria:
+  * Price will not show the amended Issue price and continue to be zero
+
+### Edit Feature/Issue Name
+
+* As a logged in user I want to be able to edit the name of a Feature/Issue and it be reflected on the name of the same feature on the all features and issues page.
+
+* Acceptance criteria:
+  * Name will show the amended Feature/Issue name
   * Image will be unchanged and no error message will be shown
   * Document Image will be unchanged and no error message will be shown
 
-### Edit Feature (save without any changes)
+### Edit Feature/Issue (save without any changes)
 
-* As a logged in user I want to be able to edit a feature and be prevented from using a 'Name' that exists in the database
+* As a logged in user I want to be able to edit a feature/issue and be prevented from using a 'Name' that exists in the database
 
 * Acceptance criteria:
   * name - Name must be unique

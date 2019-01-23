@@ -67,6 +67,17 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// issues are created and edited with zero price
+function issueZeroPrice() {
+
+  let productType = $('#id_product_type').val();
+
+  if (productType == 'I') {
+        $('input#id_price').val(0);
+  }
+  
+}
+
 // Toggle Desktop Menu bar
 function showDesktopMenu(){
   document.getElementById("desktopNav").style.visibility = 'visible';

@@ -247,7 +247,11 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.assertEqual(element.get_attribute('innerHTML'), warnings_list)
 
-    def test_edit_feature_name(self):
+    def test_edit_issue_price_name(self):
+        '''
+        This test will test that a price value when edited remains zero &
+        the edited name is saved
+        '''
 
         self.driver.get("http://localhost:8000/products")
 
@@ -260,6 +264,8 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         self.driver.implicitly_wait(0)  # seconds
 
         self.driver.find_element_by_id('id_name').send_keys('2')
+        self.driver.find_element_by_id('id_price').clear()
+        self.driver.find_element_by_id('id_price').send_keys('2')
 
         self.driver.find_element_by_xpath(
             "//*[contains(text(), 'Save')]").click()
@@ -268,7 +274,7 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
         element = self.driver.find_element_by_xpath(
             "//a[contains(@class, 'accordion-title')]")
 
-        self.assertEqual(element.text, 'Name: Product 12 Price: 10.00 Total Cumulative Donations: 60.00 Status: Doing')
+        self.assertEqual(element.text, 'Name: Product 12 Price: 0.00 Total Cumulative Donations: 60.00 Status: Doing')
 
         element = self.driver.find_element_by_xpath(
             '//div[@class="image-detail"]//img[@src]')
@@ -293,9 +299,9 @@ class DesktopProductFeaturesIssuesTest(unittest.TestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        button = self.driver.find_element_by_id('edit_2')
+        button = self.driver.find_element_by_id('edit_5')
 
-        self.driver.execute_script("$('#edit_2').click();", button)
+        self.driver.execute_script("$('#edit_5').click();", button)
 
         self.driver.implicitly_wait(0)  # seconds
 
