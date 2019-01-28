@@ -1,7 +1,6 @@
 from django import forms
 from django.conf import settings
 from .models import Product, ProductArea
-from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 
 
@@ -78,9 +77,7 @@ class NewProductForm(forms.ModelForm):
 
 
 class NewProductAreaForm(forms.ModelForm):
-    """
-    Form used to create a new product area
-    """
+    """Form used to create a new product area."""
 
     class Meta:
         model = ProductArea

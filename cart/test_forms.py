@@ -1,5 +1,6 @@
 import unittest
 import os
+import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -7,12 +8,14 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from django.core import management
 from django.core.management.commands import loaddata
+from selenium.webdriver.remote.remote_connection import LOGGER
 
 
 class DesktopCartFeaturesIssuesTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        LOGGER.setLevel(logging.WARNING)
         management.call_command('flush', verbosity=0, interactive=False)
         management.call_command(
             'loaddata',

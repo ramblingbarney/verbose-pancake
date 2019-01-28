@@ -1,15 +1,18 @@
+import logging
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.sessions.models import Session
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from django.core import management
 from django.core.management.commands import loaddata
+from selenium.webdriver.remote.remote_connection import LOGGER
 
 
 class SiteLoginLogout(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
+        LOGGER.setLevel(logging.WARNING)
         management.call_command('flush', verbosity=0, interactive=False)
         management.call_command(
             'loaddata',

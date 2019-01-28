@@ -16,12 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 # from django.urls import path
+from django.views import static
 from accounts import urls as accounts_urls
 from products import urls as products_urls
 from home import urls as home_urls
 from cart import urls as carts_urls
 from checkout import urls as checkout_urls
-from django.views import static
+from comments import urls as comments_urls
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -31,5 +32,7 @@ urlpatterns = [
     url(r'^products/', include(products_urls)),
     url(r'^cart/', include(carts_urls)),
     url(r'^checkout/', include(checkout_urls)),
+    url(r'^comments/', include(comments_urls)),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
 ]

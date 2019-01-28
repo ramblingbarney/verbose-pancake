@@ -1,17 +1,20 @@
 import unittest
 import os
+import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from django.core import management
 from django.core.management.commands import loaddata
+from selenium.webdriver.remote.remote_connection import LOGGER
 
 
 class DesktopProductViewsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        LOGGER.setLevel(logging.WARNING)
         management.call_command('flush', verbosity=0, interactive=False)
         management.call_command(
             'loaddata',
@@ -58,14 +61,13 @@ class DesktopProductViewsTest(unittest.TestCase):
         for element in elements:
             elements_list.append(element.text)
 
+        print(elements_list)
         self.assertListEqual(elements_list, test)
 
         elements = self.driver.find_elements_by_xpath(
             "//li[contains(@class, 'accordion-item is-active')]")
 
         self.assertEqual(len(elements), 7)
-
-# TODO: test profile view
 
 
 if __name__ == '__main__':

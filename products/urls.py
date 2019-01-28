@@ -15,3 +15,4 @@ urlpatterns = [
     url(r'^area/(?P<id>\d+)/delete$',
         delete_product_area, name='delete_product_area'),
 ]
+# TODO: avoid page not found errors, redirect to home

@@ -1,12 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from .models import Product, ProductVote, ProductArea
-from checkout.models import Sale, SaleProduct
-from checkout.models import SaleProduct
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .forms import NewProductForm, NewProductAreaForm
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
+from checkout.models import Sale, SaleProduct
+from .models import Product, ProductVote, ProductArea
+from .forms import NewProductForm, NewProductAreaForm
 
 
 @csrf_protect

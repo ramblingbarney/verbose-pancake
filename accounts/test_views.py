@@ -1,12 +1,17 @@
 import unittest
+import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.remote.remote_connection import LOGGER
+
+
 
 
 class DesktopNavigationTest(unittest.TestCase):
 
     def setUp(self):
         # create selenium browser instance and options
+        LOGGER.setLevel(logging.WARNING)
         options = Options()
         options.add_argument("--headless")
         self.driver = webdriver.Chrome(options=options)
@@ -65,6 +70,7 @@ class MobileNavigationTest(unittest.TestCase):
 
     def setUp(self):
         # create selenium browser instance and options
+        LOGGER.setLevel(logging.WARNING)
         options = Options()
         options.add_argument("--headless")
         self.driver = webdriver.Chrome(options=options)
@@ -91,6 +97,7 @@ class SitePageElementsShownTest(unittest.TestCase):
 
     def setUp(self):
         # create selenium browser instance and options
+        LOGGER.setLevel(logging.WARNING)
         options = Options()
         options.add_argument("--headless")
         self.driver = webdriver.Chrome(options=options)

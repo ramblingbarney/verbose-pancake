@@ -1,4 +1,5 @@
 lib*
+environment_variables_export_never_commit.sh
 ngrok
 pyvenv.cfg
 man*

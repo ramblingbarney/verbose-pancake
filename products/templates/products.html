@@ -79,11 +79,13 @@
                           {% endif %}
                           <a href="{% url 'edit_product' product.id %}"><button type="button" id="edit_{{product.id}}" class="button small button-cart-form cart-column-text">Edit</button></a>
                           <a href="{% url 'delete_product' product.id %}"><button type="button" id="delete_{{product.id}}" class="button small button-cart-form cart-column-text">Delete</button></a>
+                          <a href="{% url 'view_comments' product.id product.name %}"><button type="button" id="comments_{{product.id}}" class="button small button-cart-form cart-column-text">Comments</button></a>
                         {% else %}
                           <input type="button" title="Only 1 vote allowed per user" onclick="plusOneVote(this)" class="button small button-cart-form cart-column-text" id="vote_{{product.id}}" data-id="{{product.id}}" value="+1 Vote" disabled=true>
                           <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart" disabled=true>
                           <a href="{% url 'edit_product' product.id %}"><button type="button" class="button small button-cart-form cart-column-text" disabled=true>Edit</button></a>
                           <a href="{% url 'delete_product' product.id %}"><button type="button" class="button small button-cart-form cart-column-text" disabled=true>Delete</button></a>
+                          <a href="{% url 'view_comments' product.id product.name %}"><button type="button" class="button small button-cart-form cart-column-text" disabled=true>Comments</button></a>
                         {% endif %}
                       </form>
                     </div>

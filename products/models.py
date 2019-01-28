@@ -1,8 +1,9 @@
 import os
+import re
 from django.db import models
 from django.forms import ModelForm
 from django.db.models import Count
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, RegexValidator
 from datetimeutc.fields import DateTimeUTCField
 
 
@@ -32,7 +33,7 @@ class Product(models.Model):
     )
 
     user_id = models.IntegerField()
-    name = models.CharField(max_length=254, blank=False)
+    name = models.CharField(max_length=254, blank=False, validators=[RegexValidator(regex=r'[\w\s\d]+', message='Name can only have letters, Numbers and Spaces', ), ])
     description = models.TextField(blank=False)
     # this is the amount to be paid for the feature/issue
     # to be added to the total_amount_paid
