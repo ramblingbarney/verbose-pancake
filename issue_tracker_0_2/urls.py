@@ -25,6 +25,7 @@ from checkout import urls as checkout_urls
 from comments import urls as comments_urls
 from .settings import MEDIA_ROOT
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(home_urls)),
