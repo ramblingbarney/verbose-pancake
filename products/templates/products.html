@@ -13,6 +13,9 @@
           <span class="line-heading">Price:</span> {{ product.price }}
           <span class="line-heading">Total Cumulative Donations: </span> {{ product.total_amount_paid }}
           <span class="line-heading">Status:</span> {{ product.get_status_display }}
+          {% if user.is_staff %}
+            <span class="line-heading">Time:</span><span time-id="{{product.id}}"> {{ product.total_time }}</span>
+          {% endif %}
         </a>
        {% else %}
        <a href="#" class="accordion-title feature">
@@ -20,6 +23,9 @@
          <span class="line-heading">Price:</span> {{ product.price }}
          <span class="line-heading">Total Cumulative Donations: </span> {{ product.total_amount_paid }}
          <span class="line-heading">Status:</span> {{ product.get_status_display }}
+         {% if user.is_staff %}
+           <span class="line-heading">Time:</span><span time-id="{{product.id}}"> {{ product.total_time }}</span>
+         {% endif %}
        </a>
        {% endifequal %}
 
@@ -66,12 +72,16 @@
                           <input name='quantity' id="quantity_{{product.id}}" type="number" min="1" max="999" class="form-control input-group-field small quantity-input cart-column-text" placeholder="" required>
                         </div>
                         {% if user.is_authenticated %}
-                          <input type="button" onclick="plusOneVote(this)" class="button small button-cart-form cart-column-text" id="vote_{{product.id}}" data-id="{{product.id}}" value="+1 Vote">
-                            {% if product.get_product_type_display == "Feature" %}
-                              <input type="submit" id="add_to_cart_{{product.id}}" class="button small button-cart-form cart-column-text" value="Add to Cart">
+                          {% if user.is_staff %}
+                            <input type="button" onclick="plus15Mins(this)" class="button small button-cart-form cart-column-text" id="time_{{product.id}}" time-id="{{product.id}}" value="+15 Mins">
                             {% else %}
-                              <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart" disabled=true>
-                            {% endif %}
+                            <input type="button" onclick="plusOneVote(this)" class="button small button-cart-form cart-column-text" id="vote_{{product.id}}" data-id="{{product.id}}" value="+1 Vote">
+                          {% endif%}
+                          {% if product.get_product_type_display == "Feature" %}
+                            <input type="submit" id="add_to_cart_{{product.id}}" class="button small button-cart-form cart-column-text" value="Add to Cart">
+                          {% else %}
+                            <input type="submit" class="button small button-cart-form cart-column-text" value="Add to Cart" disabled=true>
+                          {% endif %}
                           {% if product_count >= 1 %}
                             <a href="{% url 'view_cart' %}"><button type="button" class="button small button-cart-form cart-column-text">View Cart</button></a>
                           {% else %}

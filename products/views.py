@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from checkout.models import Sale, SaleProduct
-from .models import Product, ProductVote, ProductArea
+from .models import Product, ProductVote, ProductArea, ProductTimeAssigned
 from .forms import NewProductForm, NewProductAreaForm
 
 
@@ -12,26 +12,35 @@ from .forms import NewProductForm, NewProductAreaForm
 def all_products(request):
     if request.is_ajax() and request.method == 'POST':
         current_user = request.user
-        # first check that user has not voted previously
-        if ProductVote.objects.filter(
-            user_id=current_user.id).filter(
-                product=request.POST['vote_id']):
-            return HttpResponse(0)
 
-        try:
-            product = Product.objects.filter(id=request.POST['vote_id'])
-            # if its an issue up vote allowed
-            if Product.objects.filter(
-                id=request.POST['vote_id']).filter(
-                    product_type='I'):
-                ProductVote.objects.create(product=product[0], user_id=current_user.id)
-                return HttpResponse(request.POST['vote_id'])
-            # else its a Feature and purchase required
-            elif Sale.objects.filter(user_id=current_user.id).filter(saleproduct__product=request.POST['vote_id'])[0]:
-                ProductVote.objects.create(product=product[0], user_id=current_user.id)
-                return HttpResponse(request.POST['vote_id'])
-        except IndexError:
-            return HttpResponse(1)
+        if request.POST['action_type'] == 'vote':
+            # first check that user has not voted previously
+            if ProductVote.objects.filter(
+                user_id=current_user.id).filter(
+                    product=request.POST['vote_id']):
+                return HttpResponse(0)
+
+            try:
+                product = Product.objects.filter(id=request.POST['vote_id'])
+                # if its an issue up vote allowed
+                if Product.objects.filter(
+                    id=request.POST['vote_id']).filter(
+                        product_type='I'):
+                    ProductVote.objects.create(product=product[0], user_id=current_user.id)
+                    return HttpResponse(request.POST['vote_id'])
+                # else its a Feature and purchase required
+                elif Sale.objects.filter(user_id=current_user.id).filter(saleproduct__product=request.POST['vote_id'])[0]:
+                    ProductVote.objects.create(product=product[0], user_id=current_user.id)
+                    return HttpResponse(request.POST['vote_id'])
+            except IndexError:
+                return HttpResponse(1)
+        elif request.POST['action_type'] == 'time':
+            try:
+                product = Product.objects.filter(id=request.POST['time_id'])
+                ProductTimeAssigned.objects.create(product=product[0], time_minutes=15)
+                return HttpResponse(request.POST['time_id'])
+            except IndexError:
+                return HttpResponse(1)
 
     else:
         products = Product.objects.all()

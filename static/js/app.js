@@ -19,7 +19,9 @@ function plusOneVote(element){
     $.ajax({
         url : '', // the endpoint
         type : 'POST', // http method
-        data : { vote_id : voteId, 'csrfmiddlewaretoken': csrftoken }, // data sent with the post request
+        data : { vote_id : voteId,
+                'csrfmiddlewaretoken': csrftoken,
+                action_type: 'vote' }, // data sent with the post request
 
         // handle a successful response
         success : function(data) {
@@ -39,6 +41,36 @@ function plusOneVote(element){
           $("span[data-id=" + data +"]").css('color', 'red');
           // increment text by 1 to match database record value
           $("span[data-id=" + data +"]").text(originalVoteNumber + 1);
+
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+
+}
+
+// ajax admin time spent button add 15 mins
+function plus15Mins(element){
+    var timeId = $(element).attr("time-id");
+    var csrftoken = getCookie('csrftoken');
+
+    $.ajax({
+        url : '', // the endpoint
+        type : 'POST', // http method
+        data : { time_id : timeId,
+                'csrfmiddlewaretoken': csrftoken,
+                action_type: 'time' }, // data sent with the post request
+
+        // handle a successful response
+        success : function(data) {
+
+          var originalTimeNumber = Number($("span[time-id=" + data +"]").text());
+          // change the vote number red
+          $("span[time-id=" + data +"]").css('color', 'red');
+          // increment text by 1 to match database record value
+          $("span[time-id=" + data +"]").text(originalTimeNumber + 15);
 
         },
 
@@ -75,7 +107,7 @@ function issueZeroPrice() {
   if (productType == 'I') {
         $('input#id_price').val(0);
   }
-  
+
 }
 
 // Toggle Desktop Menu bar

@@ -2,7 +2,7 @@ import os
 import re
 from django.db import models
 from django.forms import ModelForm
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.core.validators import FileExtensionValidator, RegexValidator
 from datetimeutc.fields import DateTimeUTCField
 
@@ -69,6 +69,11 @@ class Product(models.Model):
     def total_votes(self):
         return self.productvote_set.count()
 
+    @property
+    def total_time(self):
+        default = 0
+        return self.producttimeassigned_set.aggregate(total=Sum("time_minutes"))["total"] or default
+
     def save(self, *args, **kwargs):
         # object already exists in db
         if self.pk:
@@ -91,6 +96,19 @@ class ProductVote(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user_id = models.IntegerField()
     submitted = DateTimeUTCField(auto_now_add=True)
+
+    def __str__(self):
+        return self.product
+
+
+class ProductTimeAssigned(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    submitted = DateTimeUTCField(auto_now_add=True)
+    time_minutes = models.IntegerField(default=0)
+
+    @property
+    def total_time(self):
+        return self.productvote_set.count()
 
     def __str__(self):
         return self.product

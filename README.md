@@ -275,6 +275,7 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * View the /products url and click on the '+1 Vote' button for any Issue, the total vote number should increment by 1 and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the number of votes will not increment by 1, turn red and the button will turn red and text change to 'Already Voted!'
 * View the /products url and click on the '+1 Vote' button for any Feature, the total vote number should increment by 1 if the user has purchased the Feature and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the number of votes will not increment by 1, turn red and the button will turn red and text change to 'Already Voted!'.  If the user has not purchased the Feature the button will turn red and show the text 'Purchase Required'
 * Click 'Comments' and if no comment exists your shown the edit comment page to save comments, enter comments on the 'Edit Comment' page and they will saved and shown on the 'View Comment' page
+* As a 'staff' user the voting button will be replaced by a button to add 15 minutes time spend working on the Feature or Issues, each click adds 15 minutes to the total shown in the Feature/Issue description bar in red
 
 ### Password Reset
 Click on the link 'Forgot My Password' and enter your email address, either look on the terminal running the webserver or the email address supplied and open the link in the browser, enter the new password into the input boxes provided and click 'Reset Password'.  Return to the login page and login using the new password.
@@ -284,6 +285,9 @@ Click on the link 'Forgot My Password' and enter your email address, either look
 * .....
 
 ## Known Issues
+
+* The Product Id (Feature/Issue) numbers 0 and 1 are reserved for voting functionality, the product entries for these id's have to be removed from the database manually to avoid these product id's being used for real products
+
 
 [![Build Status](https://www.travis-ci.org/ramblingbarney/verbose-pancake.svg?branch=master)](https://www.travis-ci.org/ramblingbarney/verbose-pancake)
 [![codecov.io](https://codecov.io/github/ramblingbarney/verbose-pancake/coverage.svg?branch=master)](https://codecov.io/github/ramblingbarney/verbose-pancake)
