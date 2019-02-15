@@ -12,38 +12,37 @@
 <body>
     <nav>
       <div id="minimal-menu-bar">
-        <div class="give-it-border">
-          <button class="button" id="mobile-menu" onclick="showMobileMenu()"><i class="fas fa-bars"></i></button>
-          <button class="button" id="desktop-menu" onclick="showDesktopMenu()"><i class="fas fa-bars"></i></button>
+        <div>
+          <i class="fas fa-bars white-color button hamburger" id="mobile-menu" onclick="showMobileMenu()"></i>
+          <i class="fas fa-bars white-color button hamburger" id="desktop-menu" onclick="showDesktopMenu()"></i>
         </div>
-        <div class="give-it-border">
-          <font>You bug me</font>
-          <a href="{% url 'home' %}"><i class="fas fa-home"></i></a>
+        <div class="menu-item menu-item-right">
+          <span class="white-color logo-text">You bug me!</span>
+          <a href="{% url 'home' %}" class="menu-item-left"><i class="fas fa-home white-color"></i></a>
           {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+            <a href="{% url 'logout' %}" class="menu-item-left"><i class="fas fa-sign-out-alt white-color"></i></a>
           {% else %}
-            <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a>
+            <a href="{% url 'login' %}" class="menu-item-left"><i class="fas fa-sign-in-alt white-color"></i></a>
           {% endif %}
           {% if product_count >= 1 %}
-            <a href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart">{{ product_count }}</i></a>
+            <a href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart white-color menu-item-left">{{ product_count }}</i></a>
           {% else %}
-            <i class="fas fa-shopping-cart">{{ product_count }}</i>
+            <i class="fas fa-shopping-cart menu-item-left hover-color">{{ product_count }}</i>
           {% endif %}
         </div>
       </div>
-    </div>
       <div class="flex-container align-spaced" id="desktopNav" onclick="hideDesktopMenu()">
         {% if user.is_authenticated %}
-          <div><a href="{% url 'profile' %}">Profile</a></div>
-          <div><a href="{% url 'products' %}">Features/Issues</a></div>
-          <div><a href="{% url 'new_product' %}">New Features/Issues</a></div>
-          <div><a href="{% url 'product_areas' %}">Feature/Issue Areas</a></div>
-          <div><a href="{% url 'new_product_area' %}">New Feature/Issue Area</a></div>
+          <div class="nav-button"><a href="{% url 'profile' %}" id="profile">Profile</a></div>
+          <div class="nav-button"><a href="{% url 'products' %}">Features/Issues</a></div>
+          <div class="nav-button"><a href="{% url 'new_product' %}">New Features/Issues</a></div>
+          <div class="nav-button"><a href="{% url 'product_areas' %}">Feature/Issue Areas</a></div>
+          <div class="nav-button"><a href="{% url 'new_product_area' %}">New Feature/Issue Area</a></div>
 
         {% else %}
-          <div><a href="{% url 'registration' %}">Register</a></div>
-          <div><a href="{% url 'products' %}">Features & Issues</a></div>
-          <div><a href="{% url 'product_areas' %}">Featuere/Issue Areas</a></div>
+          <div class="nav-button"><a href="{% url 'registration' %}">Register</a></div>
+          <div class="nav-button"><a href="{% url 'products' %}">Features & Issues</a></div>
+          <div class="nav-button"><a href="{% url 'product_areas' %}">Feature/Issue Areas</a></div>
         {% endif %}
       </div>
     </nav>
@@ -59,13 +58,12 @@
 
       <div id="main">
         <div id="mySidenav" class="sidenav">
-          <a href="javascript:void(0)" class="closebtn" onclick="hideMobileMenu()">&times;</a>
+          <i class="far fa-window-close white-color closebtn" onclick="hideMobileMenu()"></i>
           {% if user.is_authenticated %}
             <div><a href="{% url 'profile' %}">Profile</a></div>
             <div><a href="{% url 'products' %}">Features/Issues</a></div>
             <div><a href="{% url 'new_product' %}">New Features/Issues</a></div>
             <div><a href="{% url 'new_product_area' %}">New Feature/Issue Area</a></div>
-
           {% else %}
             <div><a href="{% url 'registration' %}">Register</a></div>
             <div><a href="{% url 'products' %}">Features & Issues</a></div>

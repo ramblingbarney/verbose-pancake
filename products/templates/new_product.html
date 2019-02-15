@@ -15,20 +15,33 @@
 
   {{ form.errors }}
 
-  <table border="1">
+  <table>
+    <tr>
+      <th>
+      </th>
+      <td>
+        <h2>New Feature/Issue</h2>
+      </td>
+    </tr>
     {% for field in new_product_form.visible_fields %}
       <tr>
         <th>{{ field.label_tag }}</th>
         <td>
           {{ field.errors }}
-          {% render_field field style="border: 2px dashed red;" placeholder=field.name %}
+          {% render_field field style="border: 2px dashed orange;" placeholder=field.name %}
           {{ field.help_text }}
         </td>
       </tr>
     {% endfor %}
+      <tr>
+        <th></th>
+        <td class="row-buttons">
+          <button type="submit" onclick="issueZeroPrice();" class="button small product-new button-form">Save</button>
+          <a href="{% url 'products' %}"><button type="button" class="button small button-form cart-column-text">Cancel</button></a>
+        </td>
+      </tr>
   </table>
 
-  <button type="submit" onclick="issueZeroPrice();" class="button small product-new">Save</button>
 </form>
 
 {% endblock %}

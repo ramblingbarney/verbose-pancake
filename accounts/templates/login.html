@@ -1,14 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="post" action="{% url 'login' %}?next={{ next }}" class="accountform">
-        <fieldset class="form-group">
-            <legend>Login</legend>
-            {% csrf_token %}
-            {{ login_form }}
 
-             <p><a href="{% url 'password_reset' %}">Forgot my password</a></p>
+<table class="small-width-table">
+  <tr>
+    <th>
+      <h2>Login</h2>
+    </th>
+    <td>
+    </td>
+  </tr>
+      <form method="post" action="{% url 'login' %}?next={{ next }}" class="accountform">
+          <fieldset class="form-group">
+              {% csrf_token %}
+              {{ login_form }}
+          </fieldset>
+      <tr>
+        <td>
+          <a href="{% url 'password_reset' %}" class="button-green small cart-column-text quantity-label row-buttons one-cell-items">Forgot my password</a>
+       </td>
+        <td>
+         <button type="submit" class="button small button-form cart-column-text row-buttons one-cell-items" id="id_login_button">Login</button>
+       </form>
+       </td>
+     </tr>
+</table>
 
-            <button type="submit" class="btn btn-primary" id="id_login_button">Login</button>
-        </fieldset>
-    </form>
+
 {% endblock %}

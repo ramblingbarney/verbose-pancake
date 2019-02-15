@@ -1,8 +1,21 @@
 {% extends 'base.html' %} {% block page_title %}Product comments placeholder{% endblock %} {% block page_heading %}Product comments placeholder{% endblock %}
 {% load static %}
 {% block content %}
-<h3>{{ name }} Comments</h3>
-            <div> {{ comment.comment_wiki | safe }}  </div>
-    <a href="{% url 'edit_comments' id name %}"><button type="button" class="button small button-cart-form cart-column-text">Edit</button></a>
-    <a href="{% url 'products' %}"><button type="button" class="button small button-cart-form cart-column-text">All Products</button></a>
+
+<table class="medium-width-table">
+  <tr>
+    <th>
+      <h2>{{ name }} Comments</h2>
+    </th>
+  </tr>
+    <tr>
+      <td>{{ comment.comment_wiki | safe }}</td>
+    </tr>
+    <tr>
+      <td>
+        <a href="{% url 'edit_comments' id name %}"><button type="button" class="button small button-form cart-column-text row-buttons one-cell-items">Edit</button></a>
+        <a href="{% url 'products' %}"><button type="button" class="button small button-form cart-column-text row-buttons one-cell-items">Cancel</button></a>
+      </td>
+    </tr>
+</table>
 {% endblock %}

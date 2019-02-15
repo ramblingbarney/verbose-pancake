@@ -121,12 +121,16 @@ function hideDesktopMenu(){
 
 // Toggle Mobile Menu bar
 function showMobileMenu() {
-    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("mySidenav").style.width = "40%";
+    document.getElementById("mySidenav").style.borderRightStyle = "solid";
+    document.getElementById("mySidenav").style.borderColor = "#76503F";
 }
 
 /* Set the width of the side navigation to 0 */
 function hideMobileMenu() {
     document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("mySidenav").style.borderRightStyle = "none";
+    document.getElementById("mySidenav").style.borderColor = "#8B817F";
 }
 
 // remove spaces in the credit card number on checkout charge page

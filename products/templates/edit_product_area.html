@@ -15,21 +15,51 @@
 
   {{ form.errors }}
 
-  <table border="1">
+  <table class="medium-width-table">
+    <tr>
+      <th>
+      </th>
+      <td>
+        <h2>Feature/Issue Area</h2>
+      </td>
+    </tr>
     {% for field in new_product_area_form.visible_fields %}
       <tr>
         <th>{{ field.label_tag }}</th>
         <td>
           {{ field.errors }}
-          {% render_field field style="border: 2px dashed red;" placeholder=field.name %}
+          {% render_field field style="border: 2px dashed orange;" placeholder=field.name %}
           {{ field.help_text }}
         </td>
       </tr>
     {% endfor %}
+    <tr>
+      <th>
+      </th>
+      <td>
+        <button type="submit" class="button small button-form cart-column-text row-buttons one-cell-items product-save">Save</button>
+        <a href="{% url 'product_areas' %}"><button type="button" class="button small button-form cart-column-text row-buttons one-cell-items product-cancel">Cancel</button></a>
+      </td>
+    </tr>
   </table>
-
-  <button type="submit" class="button small product-save">Save</button>
-  <a href="{% url 'product_areas' %}"><button type="button" class="button small product-cancel">Cancel</button></a>
 </form>
+
+<table class="medium-width-table">
+  <tr>
+    <th>
+      <h2>Existing Feature/Issue Areas</h2>
+    </th>
+    <td>
+    </td>
+  </tr>
+  {% for product_area in product_areas %}
+    <tr>
+      <td class="description-heading">{{ product_area.name }}</td>
+      <td>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+
 
 {% endblock %}

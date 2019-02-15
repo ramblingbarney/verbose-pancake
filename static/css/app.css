@@ -49,11 +49,11 @@
 }
 
 .issue {
-  background-color: yellow;
+  background-color: #0C755B;
 }
 
 .feature {
-  background-color: green;
+  background-color: #1E747C;
 }
 
 .add-to-cart-cell {
@@ -78,7 +78,7 @@
 
 .quantity-label {
   padding: 0 0.4em 0 0.4em;
-  background-color: white;
+  background: transparent;
   border: none;
 }
 
@@ -89,33 +89,140 @@
 .button-cart-form {
   width: 100%;
   border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.button-form {
+  width: 5rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.row-buttons {
+  float: right;
 }
 
 .messages {
   font-size: 1em;
-  border-radius: 12px;
+}
+
+.small-width-table {
+  min-width: 40%;
+  max-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.medium-width-table {
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.one-cell-items {
+  margin-left: 5px;
+  margin-right: 5px;
+  vertical-align: bottom;
+}
+
+.border-radius-right {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 /*navigation*/
 
 #desktopNav {
   visibility: hidden;
+  background-color: #8B817F;
+  color: #000000;
+}
+
+#desktopNav a {
+  color: #FFFFFF;
+  font-size: 2.2vh;
+}
+
+.white-color {
+  color: #FFFFFF;
+}
+
+.nav-button:hover, .hover-color, #desktopNav a:hover {
+  color: #76503F;
 }
 
 #minimal-menu-bar {
-  padding-top: 10px;
-  padding-bottom: 0px;
   display: flex;
   justify-content: space-between;
+  background-color: #8B817F;
+  border-bottom-style: solid;
+  border-bottom-color: #76503F;
 }
 
 #nav-right-elements {
   display:inline-block;
 }
+.fa, .fas {
+  font-size: 1.5rem;
+}
 
-.give-it-border {
-  border:1px;
-  border: solid black;
+.menu-item-hamburger {
+  padding: 0px 0px 0px 10px;
+}
+
+.menu-item-left {
+  padding-left: 10px;
+}
+
+.menu-item-right {
+  padding-right: 10px;
+}
+
+.menu-item {
+  padding-top: 15px;
+}
+
+.logo-text {
+  font-family: 'Monospace';
+  font-weight: bold;
+  font-size: 3vh;
+}
+
+.fa-home:hover, .fa-sign-in-alt:hover, .fa-sign-out-alt:hover, .fa-shopping-cart:hover  {
+  color: #76503F;
+}
+
+
+.hamburger {
+  margin: 0;
+}
+
+.cart-input-group {
+  float: right;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  max-width: 200px;
+}
+
+.button, .button:focus {
+  background-color: #8B817F;
+}
+
+.button-green {
+  color: #0C755B;
+}
+
+.button-green:hover {
+  color: #76503F;
+  cursor: pointer;
+}
+
+.button:hover, .button[disabled]:hover {
+  background-color: #76503F;
+}
+
+.button[disabled] {
+  background-color: #8B817F;
 }
 
 /*navigation mobile menu*/
@@ -128,35 +235,43 @@
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: #8B817F; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-}
+
+  }
 
 /* The navigation menu links */
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 3.5vw;
+    color: #FFFFFF;
     display: block;
     transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: #76503F;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
+    font-size: 1rem;
+    right: 5px;
     font-size: 36px;
     margin-left: 50px;
 }
+
+.closebtn:hover {
+  cursor: pointer;
+  color: #76503F;
+}
+
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
@@ -164,16 +279,44 @@
     padding: 0px;
 }
 
+
 /*hide mobile menu for large screens*/
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 841px) {
   #mobile-menu {
     display: none;
   }
+
+  h2 {
+    font-size: 2.5vh;
+    font-weight: bold;
+  }
+
 }
 
 /*hide desktop menu for small screens*/
-@media only screen and (max-width: 549px) {
+@media only screen and (max-width: 840px) {
   #desktop-menu {
     display: none;
   }
+  #desktopNav {
+    height: 20px;
+  }
+
+  h2 {
+    font-size: 3.5vw;
+    font-weight: bold;
+  }
+
+  .nav-button {
+    display: none;
+  }
+
+  .small-width-table {
+    min-width: 80%;
+  }
+
+  .medium-width-table {
+    min-width: 80%;
+  }
+
 }

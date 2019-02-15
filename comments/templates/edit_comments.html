@@ -6,36 +6,38 @@ tinymce.init({
   selector: '#id_comment_wiki'
 });
 </script>
-  <p>{{ name }} Comments</p>
 
-  {{ comment_form.media }}
-  <form method="post" novalidate>
-    {% csrf_token %}
+  <table class="medium-width-table">
+    <tr>
+      <th>
+        <h2>{{ name }} Comments</h2>
+      </th>
+    </tr>
+      <tr>
+        <td>
+          {{ comment_form.media }}
+          <form method="post" novalidate>
+            {% csrf_token %}
 
-    {{ comment_form.non_field_errors }}
+            {{ comment_form.non_field_errors }}
 
-    {% for hidden_field in comment_form.hidden_fields %}
-      {{ hidden_field.errors }}
-      {{ hidden_field }}
-    {% endfor %}
+            {% for hidden_field in comment_form.hidden_fields %}
+              {{ hidden_field.errors }}
+              {{ hidden_field }}
+            {% endfor %}
 
-    {{ form.errors }}
+            {{ form.errors }}
 
-    <table border="1">
-      {% for field in comment_form.visible_fields %}
-        <tr>
-          <td>
-            {{ field.errors }}
-            {% render_field field style="border: 2px dashed red;" placeholder=field.name %}
-            {{ field.help_text }}
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-
-    <button type="submit" class="button small product-new">Save</button>
-    <a href="{% url 'products' %}"><button type="button" class="button small button-cart-form cart-column-text">All Products</button></a>
+            {{ comment_form.comment_wiki | safe }}
+        </td>
+      </tr>
+      <tr>
+        <td class="add-to-cart-cell">
+          <button type="submit" class="button small button-form cart-column-text row-buttons one-cell-items">Save</button>
+          <a href="{% url 'products' %}"><button type="button" class="button small button-form cart-column-text row-buttons one-cell-items">Cancel</button></a>
+        </td>
+      </tr>
+  </table>
   </form>
-
 
 {% endblock %}

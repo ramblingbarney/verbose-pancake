@@ -127,12 +127,14 @@ class SitePageElementsShownTest(unittest.TestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
-
-        self.driver.implicitly_wait(0)  # seconds
-
         self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Register')]").click()
+            "//i[contains(@class, 'fa-bars')]").click()
+
+        # selenium error element not interactable for click
+        self.driver.find_element_by_xpath(
+                    "//*[contains(text(), 'Register')]")
+
+        self.driver.get("http://localhost:8000/accounts/register/")
 
         elements = []
         elements.append(self.driver.find_element_by_id("id_username"))

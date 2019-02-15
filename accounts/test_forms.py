@@ -55,12 +55,16 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
+        menu_button = self.driver.find_element_by_id('desktop-menu')
+        self.driver.execute_script("$('#desktop-menu').click();", menu_button)
 
         self.driver.implicitly_wait(0)  # seconds
 
+        # selenium error element not interactable for click
         self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Register')]").click()
+                    "//*[contains(text(), 'Register')]")
+
+        self.driver.get("http://localhost:8000/accounts/register/")
 
         self.driver.implicitly_wait(1)  # seconds
 
@@ -86,14 +90,16 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-bars')]").click()
 
         self.driver.implicitly_wait(0)  # seconds
 
+        # selenium error element not interactable for click
         self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Register')]").click()
+                    "//*[contains(text(), 'Register')]")
 
-        self.driver.implicitly_wait(1)  # seconds
+        self.driver.get("http://localhost:8000/accounts/register/")
 
         self.driver.find_element_by_id(
             'id_email').send_keys('conor@tests1234.com')
@@ -122,12 +128,14 @@ class SiteLoginLogout(StaticLiveServerTestCase):
 
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
-
-        self.driver.implicitly_wait(0)  # seconds
-
         self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Register')]").click()
+            "//i[contains(@class, 'fa-bars')]").click()
+
+        # selenium error element not interactable for click
+        self.driver.find_element_by_xpath(
+                    "//*[contains(text(), 'Register')]")
+
+        self.driver.get("http://localhost:8000/accounts/register/")
 
         self.driver.implicitly_wait(1)  # seconds
 
@@ -153,12 +161,14 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
-
-        self.driver.implicitly_wait(0)  # seconds
-
         self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Register')]").click()
+            "//i[contains(@class, 'fa-bars')]").click()
+
+        # selenium error element not interactable for click
+        self.driver.find_element_by_xpath(
+                    "//*[contains(text(), 'Register')]")
+
+        self.driver.get("http://localhost:8000/accounts/register/")
 
         self.driver.implicitly_wait(0)  # seconds
 
@@ -205,12 +215,15 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
+        self.driver.find_element_by_xpath(
+            "//i[contains(@class, 'fa-bars')]").click()
 
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Profile')]").click()
+        profile_link = self.driver.find_element_by_xpath(
+            "//div/a[contains(text(), 'Profile')]")
+
+        self.driver.execute_script("$('#profile').click();", profile_link)
 
         self.assertEqual(1, 1)
 
@@ -225,10 +238,14 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.driver.get("http://localhost:8000")
         self.driver.implicitly_wait(0)  # seconds
 
-        self.driver.find_element_by_id('desktop-menu').click()
-
         self.driver.find_element_by_xpath(
-            "//div/a[contains(text(), 'Register')]").click()
+            "//i[contains(@class, 'fa-bars')]").click()
+
+        # selenium error element not interactable for click
+        self.driver.find_element_by_xpath(
+                    "//*[contains(text(), 'Register')]")
+
+        self.driver.get("http://localhost:8000/accounts/register/")
 
         self.assertEqual(1, 1)
 

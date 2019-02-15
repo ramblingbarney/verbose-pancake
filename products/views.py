@@ -117,6 +117,7 @@ def delete_product(request, id=None, template_name='products.html'):
 
 @login_required
 def new_product_area(request):
+    product_areas = ProductArea.objects.all()
     product_area_form = NewProductAreaForm()
     if request.method == 'POST':
         form = NewProductAreaForm(request.POST)
@@ -129,12 +130,14 @@ def new_product_area(request):
             messages.add_message(
                 request, messages.ERROR, form.errors)
 
-    args = {'new_product_area_form': product_area_form}
+    args = {'new_product_area_form': product_area_form,
+            'product_areas': product_areas}
     return render(request, 'new_product_area.html', args)
 
 
 @login_required
 def edit_product_area(request, id=None, template_name='edit_product_area.html'):
+    product_areas = ProductArea.objects.all()
     if id:
         product_area = get_object_or_404(ProductArea, id=id)
 
@@ -152,9 +155,9 @@ def edit_product_area(request, id=None, template_name='edit_product_area.html'):
         messages.add_message(
             request, messages.ERROR, 'No changes to save')
 
-    args = {'new_product_area_form': new_product_area_form}
+    args = {'new_product_area_form': new_product_area_form,
+            'product_areas': product_areas}
     return render(request, template_name, args)
-
 
 @login_required
 def delete_product_area(request, id=None, template_name='edit_product_area.html'):
@@ -179,4 +182,4 @@ def delete_product_area(request, id=None, template_name='edit_product_area.html'
 def all_product_areas(request):
     product_areas = ProductArea.objects.all()
     return render(
-        request, "product_areas.html", {"product_areas": product_areas})
+        request, 'product_areas.html', {'product_areas': product_areas})

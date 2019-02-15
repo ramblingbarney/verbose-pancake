@@ -8,7 +8,7 @@
   <li class="accordion-item is-active" data-accordion-item>
       <!-- Accordion tab title -->
       {% ifequal product.product_type 'I' %}
-        <a href="#" class="accordion-title issue">
+        <a href="#" class="accordion-title issue white-color">
           <span class="line-heading">Name:</span> {{ product.name }}
           <span class="line-heading">Price:</span> {{ product.price }}
           <span class="line-heading">Total Cumulative Donations: </span> {{ product.total_amount_paid }}
@@ -18,7 +18,7 @@
           {% endif %}
         </a>
        {% else %}
-       <a href="#" class="accordion-title feature">
+       <a href="#" class="accordion-title feature white-color">
          <span class="line-heading">Name:</span> {{ product.name }}
          <span class="line-heading">Price:</span> {{ product.price }}
          <span class="line-heading">Total Cumulative Donations: </span> {{ product.total_amount_paid }}
@@ -62,8 +62,8 @@
               <td class="add-to-cart-cell">
                 <form method="post" action="{% url 'add_to_cart' product.id %}">
                   {% csrf_token %}
-                  <div class="row grid-x">
-                    <div class="small-5 large-10 columns add-to-cart-vote-form">
+                  <div class="row grid-x cart-column">
+                    <div class="small-1 large-1 columns add-to-cart-vote-form">
                       <p class="cart-column-text votes-label">Votes:
                           <span data-id="{{product.id}}">{{ product.total_votes }}</span></p>
                       <form method="post" action="{% url 'add_to_cart' product.id %}">

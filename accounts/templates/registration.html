@@ -1,7 +1,30 @@
 {% extends 'base.html' %} {% block page_title %}Registration Page{% endblock %} {% block page_heading %}User Registration{% endblock %} {% block content %}
-<p>If you already have an account, you can <a href="{% url 'login' %}">sign in </a></p>
-<form method="POST">
-    {% csrf_token %} {{ registration_form.as_p }}
-    <button type="submit" id="id_register_button">Register</button>
-</form>
+
+<table class="small-width-table">
+  <tr>
+    <th>
+      <h2>Register</h2>
+    </th>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      If you already have an account, you can <a href="{% url 'login' %}" class="button-green small cart-column-text quantity-label row-buttons one-cell-items">sign in </a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <form method="POST">
+          {% csrf_token %} {{ registration_form.as_p }}
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+        <button type="submit" id="id_register_button" class="button small button-form cart-column-text row-buttons one-cell-items">Register</button>
+    </form>
+    </td>
+  </tr>
+</table>
+
 {% endblock %}
