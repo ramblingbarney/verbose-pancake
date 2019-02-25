@@ -121,7 +121,7 @@ function hideDesktopMenu(){
 
 // Toggle Mobile Menu bar
 function showMobileMenu() {
-    document.getElementById("mySidenav").style.width = "40%";
+    document.getElementById("mySidenav").style.width = "50%";
     document.getElementById("mySidenav").style.borderRightStyle = "solid";
     document.getElementById("mySidenav").style.borderColor = "#76503F";
 }

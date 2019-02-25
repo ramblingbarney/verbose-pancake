@@ -1,3 +1,164 @@
-{% extends 'base.html' %} {% block page_title %}{{ user }}'s Profile{% endblock %} {% block page_heading %}{{ user }}'s Profile{% endblock %} {% block content %}
-<p>{{ profile.email }}</p>
+{% extends 'base.html' %} {% block page_title %}{{ user }}'s Profile{% endblock %}{% block content %}
+{% load static %}
+
+<table class="large-width-table">
+  <tr>
+    <th>
+      <h2>Hello {{ profile.email }}</h2>
+    </th>
+  </tr>
+  <tr>
+    <th>
+      Your Features/Issues Votes
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartProfile" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      All Features/Issues Votes
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartAllVotes" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      All Features/Issues Donations
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartAllDonations" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      All Features/Issues Time
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartAllAdmin" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      All Features/Issues Time Daily
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartAllAdminDaily" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      All Features/Issues Time Last 7 Days
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartAllAdmin7Days" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      All Features/Issues Time Monthly
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <canvas id="myChartAllAdminMonthly" width="100%" height="100%"></canvas>
+    </td>
+  </tr>
+</table>
+
+<script src="{% static 'js/chartFunctions.js' %}"></script>
+<script>
+
+function myFeaturesVotes(){
+  var ctx = document.getElementById("myChartProfile").getContext('2d');
+  var chartlabel = '# of Votes';
+  var labelNames = {{ all_product_names_my_votes | safe }};
+  var graphData = {{ all_product_my_votes | safe }};
+  var backgroundColours = {{ background_colours_my_votes | safe }};
+  var borderColors = {{ border_colours_my_votes | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+myFeaturesVotes();
+
+function allVotes(){
+  var ctx = document.getElementById("myChartAllVotes").getContext('2d');
+  var chartlabel = '# of Votes';
+  var labelNames = {{ all_product_names_all_votes | safe }};
+  var graphData = {{ all_product_all_votes | safe }};
+  var backgroundColours = {{ background_colours_all_votes | safe }};
+  var borderColors = {{ border_colours_all_votes | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+allVotes();
+
+function donations(){
+  var ctx = document.getElementById("myChartAllDonations").getContext('2d');
+  var chartlabel = '£ of Donations';
+  var labelNames = {{ all_product_names_donations | safe }};
+  var graphData = {{ all_product_donations | safe }};
+  var backgroundColours = {{ background_colours_donations | safe }};
+  var borderColors = {{ border_colours_donations | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+donations();
+
+function minutesAdmin(){
+  var ctx = document.getElementById("myChartAllAdmin").getContext('2d');
+  var chartlabel = '# of Minutes';
+  var labelNames = {{ all_product_names_time | safe }};
+  var graphData = {{ all_product_time | safe }};
+  var backgroundColours = {{ background_colours_time | safe }};
+  var borderColors = {{ border_colours_time | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+minutesAdmin();
+
+function minutesAdminDaily(){
+  var ctx = document.getElementById("myChartAllAdminDaily").getContext('2d');
+  var chartlabel = '# of Minutes';
+  var labelNames = {{ all_product_names_time_daily | safe }};
+  var graphData = {{ all_product_time_daily | safe }};
+  var backgroundColours = {{ background_colours_time_daily | safe }};
+  var borderColors = {{ border_colours_time_daily | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+minutesAdminDaily();
+
+function minutesAdmin7Days(){
+  var ctx = document.getElementById("myChartAllAdmin7Days").getContext('2d');
+  var chartlabel = '# of Minutes';
+  var labelNames = {{ all_product_names_time_7days | safe }};
+  var graphData = {{ all_product_time_7days | safe }};
+  var backgroundColours = {{ background_colours_time_7days | safe }};
+  var borderColors = {{ border_colours_time_7days | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+minutesAdmin7Days();
+
+function minutesAdminMonthly(){
+  var ctx = document.getElementById("myChartAllAdminMonthly").getContext('2d');
+  var chartlabel = '# of Minutes';
+  var labelNames = {{ all_product_names_time_monthly | safe }};
+  var graphData = {{ all_product_time_monthly | safe }};
+  var backgroundColours = {{ background_colours_time_monthly | safe }};
+  var borderColors = {{ border_colours_time_monthly | safe }};
+  createBarChart(ctx, chartlabel, labelNames, graphData, backgroundColours, borderColors);
+}
+minutesAdminMonthly();
+
+</script>
+
 {% endblock %}

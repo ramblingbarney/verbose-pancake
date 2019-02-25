@@ -190,7 +190,7 @@ class SiteLoginLogout(StaticLiveServerTestCase):
         self.assertEqual(len(elements_count), 1)
 
         elements_count = self.driver.find_elements_by_xpath(
-            "//*[contains(text(), 'pages about the site')]")
+            "//*[contains(text(), 'welcome')]")
 
         self.assertEqual(len(elements_count), 1)
 
