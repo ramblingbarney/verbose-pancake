@@ -24,10 +24,10 @@ STRIPE_API_KEY = os.environ['STRIPE_API_KEY']
 STRIPE_PUBLISHABLE_KEY = os.environ['STRIPE_PUBLISHABLE_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [you-bug-me-to-do.herokuapp.com]
 
 
 # Application definition
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 ROOT_URLCONF = 'issue_tracker_0_2.urls'
 
 TEMPLATES = [
