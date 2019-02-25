@@ -1,1 +1,1 @@
-web: gunicorn gettingstarted.wsgi
+web: gunicorn issue_tracker_0_2.wsgi --log-file -
