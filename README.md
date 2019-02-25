@@ -8,12 +8,14 @@ The purpose of this application is provide an easy way to track bugs/features fo
 * [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) available in the 'user' path executing tests
 
 ## Wireframes
-
+See wireframe.jpg 1 - 4
 
 ## Installation
 
 * ```pip3 install -r /path/to/requirements.txt```
 * ```export SECRET_KEY=<complete key>``` SECRET_KEY environment variable
+* ```export STRIPE_PUBLISHABLE_KEY=<complete key>``` STRIPE_PUBLISHABLE_KEY environment variable
+* ```export STRIPE_API_KEY=<complete key>``` STRIPE_API_KEY environment variable
 
 ### Running Tests
 
@@ -23,17 +25,15 @@ The purpose of this application is provide an easy way to track bugs/features fo
 
 The 'development' and 'testing' of the app have been done on the 'master' branch.  'Coverage' has been calculated on the 'master' branch.
 
-The deployed version (master_heroku) on heroku has the following differences from the 'master' branch
+The deployed version (deploy_heroku) on heroku has the following differences from the 'master' branch
 
-* No testing profile in the config.py file and file uses environment variables instead of hardcoded values.  The 'master' branch does not contain this file so the example version of the file requires hardcoded values as described in the Installation steps.
+* url set to heroku url
 
 * The deployed branch uses these heroku configuration variables
-  * CURRENT_HOST (app.py home route replacing https://localhost:5000)
-  * FLASK_CONFIG
-  * MONGO_DBNAME (config.py)
-  * MONGO_URI (config.py)
-  * SECRET_KEY (config.py)
-  * YOURAPPLICATION_SETTINGS
+
+  * STRIPE_PUBLISHABLE_KEY
+  * STRIPE_API_KEY
+  * SECRET_KEY
 
 * The webserver specified on heroku is 'gunicorn'
 * DEBUG=False and host/port taken from os.environ environment variables
@@ -276,13 +276,14 @@ The deployed version (master_heroku) on heroku has the following differences fro
 * View the /products url and click on the '+1 Vote' button for any Feature, the total vote number should increment by 1 if the user has purchased the Feature and turn red only allowing one vote per registered user per feature/issue, were the user has voted on the feature/issue before the number of votes will not increment by 1, turn red and the button will turn red and text change to 'Already Voted!'.  If the user has not purchased the Feature the button will turn red and show the text 'Purchase Required'
 * Click 'Comments' and if no comment exists your shown the edit comment page to save comments, enter comments on the 'Edit Comment' page and they will saved and shown on the 'View Comment' page
 * As a 'staff' user the voting button will be replaced by a button to add 15 minutes time spend working on the Feature or Issues, each click adds 15 minutes to the total shown in the Feature/Issue description bar in red
+* The Profile & Home Page graphs should show  a label of 'no data' and empty axis when do data is available for the graphs
 
 ### Password Reset
 Click on the link 'Forgot My Password' and enter your email address, either look on the terminal running the webserver or the email address supplied and open the link in the browser, enter the new password into the input boxes provided and click 'Reset Password'.  Return to the login page and login using the new password.
 
 ### Small Screen / Mobile menu
 
-* .....
+* For Small screens the desktop drop down menu is not shown and instead the side menu is shown
 
 ## Known Issues
 
