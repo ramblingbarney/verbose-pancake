@@ -67,6 +67,7 @@
                       <p class="cart-column-text votes-label">Votes:
                           <span data-id="{{product.id}}">{{ product.total_votes }}</span></p>
                       <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
                         <div class="input-group">
                           <span class="input-group-label quantity-label cart-column-text">Quantity:</span>
                           <input name='quantity' id="quantity_{{product.id}}" type="number" min="1" max="999" class="form-control input-group-field small quantity-input cart-column-text" placeholder="" required>

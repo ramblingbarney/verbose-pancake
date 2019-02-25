@@ -10,6 +10,7 @@
     </td>
   </tr>
       <form method="post" action="{% url 'login' %}?next={{ next }}" class="accountform">
+        {% csrf_token %}
           <fieldset class="form-group">
               {% csrf_token %}
               {{ login_form }}
