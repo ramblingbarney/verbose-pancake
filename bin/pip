@@ -1,5 +1,4 @@
 #!/home/conor/workspace/code_institute/stream-3-django-0-3/bin/python3.7
-
 # -*- coding: utf-8 -*-
 import re
 import sys
